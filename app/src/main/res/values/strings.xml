@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LikeStudy</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <!--title-->
+    <string name="title_recently">最近添加的计划</string>
+    <string name="title_subject">按科目分类的计划</string>
+    <string name="title_way">按方式分类的计划</string>
+
+    <string-array name="titles">
+        <item>@string/title_recently</item>
+        <item>@string/title_subject</item>
+        <item>@string/title_way</item>
+
+    </string-array>
+</resources>

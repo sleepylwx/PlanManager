@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#FFc3272b"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <include layout="@layout/layout_main_custom_toolbar"/>
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" />
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"/>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_anchor="@id/bottom_bar"-->
+        <!--app:layout_anchorGravity="top|right"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginBottom="90dp"-->
+
+
+
+        <!--android:src="@android:drawable/ic_dialog_email" />-->
+    <!--<com.getbase.floatingactionbutton.AddFloatingActionButton-->
+        <!--android:id="@+id/semi_transparent"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_anchor="@id/bottom_bar"-->
+        <!--app:layout_anchorGravity="top|right"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:layout_marginBottom="90dp"-->
+        <!--fab:fab_plusIconColor="#fafafa"-->
+        <!--fab:fab_colorNormal="#FFc3272b"-->
+        <!--fab:fab_colorPressed="#FF80002b"-->
+        <!--/>-->
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_addButtonColorNormal="#FFc3272b"
+        fab:fab_addButtonColorPressed="#FF80002b"
+        fab:fab_addButtonPlusIconColor="#fafafa"
+        app:layout_anchor="@id/bottom_bar"
+        app:layout_anchorGravity="top|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="90dp"
+        fab:fab_labelStyle="@style/menu_labels_style">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#fafafa"
+            fab:fab_title="抽取一个计划"
+            fab:fab_colorPressed="#FF80002b"
+            fab:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_main_nav_music"
+            fab:fab_colorNormal="#fafafa"
+            fab:fab_title="添加计划"
+            fab:fab_colorPressed="#FF80002b"
+            fab:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#fafafa"
+            fab:fab_title="语音助手"
+            fab:fab_colorPressed="#FF80002b"
+            fab:fab_size="mini"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</android.support.design.widget.CoordinatorLayout>
