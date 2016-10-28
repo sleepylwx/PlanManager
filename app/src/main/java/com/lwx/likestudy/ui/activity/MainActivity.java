@@ -1,12 +1,10 @@
-package com.lwx.likestudy.ui;
+package com.lwx.likestudy.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +18,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
+import com.lwx.likestudy.ui.fragment.RecentFragment;
 import com.lwx.likestudy.ui.fragment.Test;
 
 public class MainActivity extends AppCompatActivity
@@ -35,19 +34,20 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("最近添加的计划");
+
         setSupportActionBar(toolbar);
         titles = getResources().getStringArray(R.array.titles);
         Fragment[] fragments = new Fragment[titles.length];
         Log.e("find",String.valueOf(titles.length));
         for(int i = 0; i < titles.length; ++i){
 
-            fragments[i] = new Test();
+            fragments[i] = new RecentFragment();
         }
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager(),titles,fragments);
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(adapter.getCount() - 1);
-        viewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.page_margin));
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_bar);
+        bottomNavigationBar.setAutoHideEnabled(false);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_main_nav_play_list,"最近"))
                             .addItem(new BottomNavigationItem(R.drawable.ic_main_nav_local_files,"科目"))
                             .addItem(new BottomNavigationItem(R.drawable.ic_main_nav_music,"方式"))
@@ -97,12 +98,15 @@ public class MainActivity extends AppCompatActivity
 
                     case 0:
                         toolbar.setTitle(titles[0]);
+                        viewPager.setCurrentItem(position);
                         break;
                     case 1:
                         toolbar.setTitle(titles[1]);
+                        viewPager.setCurrentItem(position);
                         break;
                     case 2:
                         toolbar.setTitle(titles[2]);
+                        viewPager.setCurrentItem(position);
                         break;
                 }
             }
@@ -121,6 +125,13 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationBar.selectTab(0);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
@@ -142,8 +153,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.mode_self_learning) {
+
+            Intent intent = new Intent(MainActivity.this,SelfLearingActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
