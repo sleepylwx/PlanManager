@@ -1,4 +1,4 @@
-package com.lwx.likestudy.data.db;
+package com.lwx.likestudy.data.source.db;
 
 import com.litesuits.orm.LiteOrm;
 import com.lwx.likestudy.BuildConfig;
@@ -29,7 +29,7 @@ public class LiteOrmHelper {
                 }
             }
 
-            return sInstance;
+
         }
 
         return sInstance;

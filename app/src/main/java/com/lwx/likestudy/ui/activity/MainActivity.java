@@ -2,6 +2,7 @@ package com.lwx.likestudy.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -13,13 +14,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
 import com.lwx.likestudy.ui.fragment.RecentFragment;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lwx.likestudy.ui.fragment.Test;
+
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +38,10 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     ViewPager viewPager;
     String[] titles;
+    TextView frogView;
+    boolean floatingButtonOpen = false;
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +50,8 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle("最近添加的计划");
 
         setSupportActionBar(toolbar);
+
+
         titles = getResources().getStringArray(R.array.titles);
         Fragment[] fragments = new Fragment[titles.length];
         Log.e("find",String.valueOf(titles.length));
@@ -65,13 +81,57 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+
+
+
+
+
+        final FloatingActionsMenu fabMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        fabMenu.setClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if(floatingButtonOpen == false){
+
+                    frogView.setVisibility(View.VISIBLE);
+
+                    floatingButtonOpen = true;
+                    fabMenu.toggle();
+                }
+                else{
+
+                    frogView.setVisibility(View.GONE);
+                    floatingButtonOpen = false;
+                    fabMenu.collapse();
+                }
+
+
+            }
+        });
+
+        FloatingActionButton fabB = (FloatingActionButton) findViewById(R.id.action_b);
+        fabB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this,SetPlanActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        frogView = (TextView)findViewById(R.id.frogview);
+        frogView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                frogView.setVisibility(View.GONE);
+                fabMenu.collapse();
+                floatingButtonOpen = false;
+
+            }
+        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -83,17 +143,26 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_bar);
         bottomNavigationBar.setAutoHideEnabled(false);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_main_nav_play_list,"最近"))
-                            .addItem(new BottomNavigationItem(R.drawable.ic_main_nav_local_files,"科目"))
-                            .addItem(new BottomNavigationItem(R.drawable.ic_main_nav_music,"方式"))
-                            .initialise();
+                .addItem(new BottomNavigationItem(R.drawable.ic_main_nav_local_files,"科目"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_main_nav_music,"方式"))
+                .initialise();
 
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
 
+
+                if(floatingButtonOpen == true){
+
+                    frogView.setVisibility(View.GONE);
+                    fabMenu.collapse();
+                    floatingButtonOpen = false;
+                }
                 switch (position){
 
                     case 0:
@@ -121,8 +190,10 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-       // toolbar.setTitle("最近");
         bottomNavigationBar.selectTab(0);
+
+
+
     }
 
 

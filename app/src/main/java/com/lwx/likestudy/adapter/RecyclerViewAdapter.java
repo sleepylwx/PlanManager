@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
+import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 
 import java.util.List;
 
@@ -18,12 +19,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     Context context;
-    List<String> datas;
+    List<UnFinishedStudyPlan> datas;
 
-    public RecyclerViewAdapter(Context context,List<String> datas){
+    public RecyclerViewAdapter(Context context){
 
         this.context = context;
-        this.datas = datas;
+
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -35,11 +36,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder,int position){
 
-        holder.textView.setText(datas.get(position));
+        UnFinishedStudyPlan unFinishedStudyPlan = datas.get(position);
+        holder.textView.setText(unFinishedStudyPlan.getId() + " " + unFinishedStudyPlan.getCreatedTime()
+        +" " + unFinishedStudyPlan.getSubject() + " " + unFinishedStudyPlan.getWay() + "\n" +
+        unFinishedStudyPlan.getContent() + "\n" + unFinishedStudyPlan.getEndTime() + " " +
+        unFinishedStudyPlan.getImportance());
     }
 
     @Override
     public int getItemCount(){
+        if(datas == null)
+            return 0;
         return datas.size();
     }
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -51,5 +58,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textView = (TextView) view.findViewById(R.id.recyclerview_item_textview);
 
         }
+    }
+
+    public void setDatas(List<UnFinishedStudyPlan> unFinishedStudyPlans){
+
+        this.datas = unFinishedStudyPlans;
+    }
+
+    public List<UnFinishedStudyPlan> getDatas(){
+
+        return this.datas;
     }
 }

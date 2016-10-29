@@ -7,7 +7,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="DemoTest1"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".LikeStudyApplication">
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/AppTheme">
@@ -18,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.SelfLearingActivity"/>
-
+        <activity android:name=".ui.activity.SetPlanActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
 
     </application>
 

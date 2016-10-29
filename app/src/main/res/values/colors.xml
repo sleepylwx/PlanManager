@@ -3,4 +3,11 @@
     <color name="colorPrimary">#FFc3272b</color>
     <color name="colorPrimaryDark">#FFc3272b</color>
     <color name="colorAccent">#FFc3272b</color>
+
+    <color name="color_fragment_recent">#fffdf5e6</color>
+
+    <color name="color_recyclerview_item_selected">#fff1c1e6</color>
+    <color name="color_recyclerview_item">#fffdf5e6</color>
+
+    <color name="color_frogview">#d0ffffff</color>
 </resources>

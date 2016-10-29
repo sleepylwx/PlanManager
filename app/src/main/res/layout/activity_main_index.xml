@@ -39,6 +39,13 @@
         android:layout_height="match_parent"
         />
 
+    <TextView
+        android:id="@+id/frogview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/color_frogview" />
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
         android:layout_width="wrap_content"
@@ -85,4 +92,6 @@
             fab:fab_size="mini"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
 </RelativeLayout>
