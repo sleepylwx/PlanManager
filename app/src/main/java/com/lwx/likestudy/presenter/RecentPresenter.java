@@ -1,5 +1,8 @@
 package com.lwx.likestudy.presenter;
 
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
 import com.lwx.likestudy.contract.RecentContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.data.source.DataRepository;
@@ -22,14 +25,14 @@ public class RecentPresenter implements RecentContract.Presenter{
     private RecentContract.View mView;
     private DataRepository mRepository;
     private CompositeSubscription mSubscriptions;
-
     public RecentPresenter(RecentContract.View view){
 
         this.mView = view;
         mRepository = DataRepository.getsIntance();
         mSubscriptions = new CompositeSubscription();
-        mView.setPresenter(this);
+        this.mView.setPresenter(this);
     }
+
 
     @Override
     public void subscribe(){
@@ -41,7 +44,7 @@ public class RecentPresenter implements RecentContract.Presenter{
     public void unSubscribe(){
 
         mView = null;
-        mSubscriptions.clear();
+        //mSubscriptions.clear();
     }
 
     @Override
@@ -79,6 +82,39 @@ public class RecentPresenter implements RecentContract.Presenter{
         mSubscriptions.add(subscription);
     }
 
+    @Override
+    public void createUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan){
+
+        Subscription subscription = mRepository.create(unFinishedStudyPlan)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UnFinishedStudyPlan>() {
+
+                    @Override
+                    public void onStart(){
+
+                        mView.showLoading();
+                    }
+                    @Override
+                    public void onCompleted() {
+
+                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        mView.hideLoading();
+                        mView.handleError(e);
+                    }
+
+                    @Override
+                    public void onNext(UnFinishedStudyPlan unFinishedStudyPlan) {
+
+                        mView.onUnFinishedStudyPlanCreated(unFinishedStudyPlan);
+                    }
+                });
+    }
     @Override
     public void deleteUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan){
 

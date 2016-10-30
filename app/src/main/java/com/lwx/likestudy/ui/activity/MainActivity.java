@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
 
         titles = getResources().getStringArray(R.array.titles);
-        Fragment[] fragments = new Fragment[titles.length];
+        final Fragment[] fragments = new Fragment[titles.length];
         Log.e("find",String.valueOf(titles.length));
         for(int i = 0; i < titles.length; ++i){
 
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
 
                 Intent intent = new Intent(MainActivity.this,SetPlanActivity.class);
                 startActivity(intent);
+                closeFloatingMenu();
             }
         });
 

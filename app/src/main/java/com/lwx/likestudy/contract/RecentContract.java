@@ -33,6 +33,7 @@ public interface RecentContract {
 
         void loadUnFinishedStudyPlans();
 
+        void createUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan);
 
         void deleteUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan);
 

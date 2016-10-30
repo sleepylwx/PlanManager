@@ -1,33 +1,22 @@
 package com.lwx.likestudy.ui.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.RecyclerViewAdapter;
 import com.lwx.likestudy.contract.RecentContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
-import com.lwx.likestudy.data.source.DataRepository;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.presenter.RecentPresenter;
-import com.lwx.likestudy.ui.activity.MainActivity;
-import com.lwx.likestudy.ui.activity.SelfLearingActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by 36249 on 2016/10/27.
@@ -62,7 +51,8 @@ public class RecentFragment extends BaseFragment implements RecentContract.View{
         madapter = new RecyclerViewAdapter(getActivity());
         //
 
-
+//        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,"数学","fasd",
+//                        "asdasdsa",1024,5));
 
 
         recyclerView.setAdapter(madapter);
@@ -82,6 +72,8 @@ public class RecentFragment extends BaseFragment implements RecentContract.View{
                     }
                 }));
         recyclerView.addItemDecoration(new DividerItemDecoration());
+
+        RecentFragmentWrapper.sInstance = this;
         new RecentPresenter(this).subscribe();
     }
 
@@ -100,6 +92,11 @@ public class RecentFragment extends BaseFragment implements RecentContract.View{
         mPresenter = presenter;
     }
 
+    @Override
+    public RecentContract.Presenter getPresenter(){
+
+        return mPresenter;
+    }
     @Override
     public void showLoading(){
 

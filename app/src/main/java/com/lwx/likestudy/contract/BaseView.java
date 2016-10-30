@@ -6,4 +6,6 @@ package com.lwx.likestudy.contract;
 interface BaseView<T> {
 
     void setPresenter(T presenter);
+
+    T getPresenter();
 }

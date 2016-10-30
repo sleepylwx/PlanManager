@@ -1,17 +1,16 @@
 package com.lwx.likestudy.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.lwx.likestudy.R;
+import com.lwx.likestudy.contract.RecentContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
-import com.lwx.likestudy.data.source.db.LiteOrmHelper;
+import com.lwx.likestudy.ui.fragment.RecentFragmentWrapper;
 
 /**
  * Created by 36249 on 2016/10/29.
@@ -25,6 +24,8 @@ public class SetPlanActivity extends AppCompatActivity {
     EditText endTimeEditText;
     EditText importanceEditText;
     EditText contentEditText;
+
+    RecentContract.Presenter mPresenter;
     @Override
     protected void onCreate(Bundle onSavedInstanceState){
 
@@ -40,6 +41,7 @@ public class SetPlanActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mPresenter = RecentFragmentWrapper.getInstance().getPresenter();
         subjectEditText = (EditText)findViewById(R.id.edittext_subject);
         wayEditText = (EditText)findViewById(R.id.edittext_way);
         endTimeEditText = (EditText)findViewById(R.id.edittext_endtime);
@@ -56,8 +58,11 @@ public class SetPlanActivity extends AppCompatActivity {
                 long endTime = 1024;
                 int importance = Integer.valueOf(importanceEditText.getText().toString());
                 String content = contentEditText.getText().toString();
-                LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,subject,way,
-                        content,endTime,importance));
+//                LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,subject,way,
+//                        content,endTime,importance));
+//                DataRepository.getsIntance().create(new UnFinishedStudyPlan(0,subject,way,
+//                        content,endTime,importance));
+                mPresenter.createUnFinishedStudyPlan(new UnFinishedStudyPlan(0,subject,way,content,endTime,importance));
                 finish();
             }
         });
