@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationBar bottomNavigationBar;
+    FloatingActionsMenu fabMenu;
     Toolbar toolbar;
     ViewPager viewPager;
     String[] titles;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        final FloatingActionsMenu fabMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        fabMenu = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         fabMenu.setClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,16 +95,11 @@ public class MainActivity extends AppCompatActivity
 
                 if(floatingButtonOpen == false){
 
-                    frogView.setVisibility(View.VISIBLE);
-
-                    floatingButtonOpen = true;
-                    fabMenu.toggle();
+                    openFloatingMenu();
                 }
                 else{
 
-                    frogView.setVisibility(View.GONE);
-                    floatingButtonOpen = false;
-                    fabMenu.collapse();
+                    closeFloatingMenu();
                 }
 
 
@@ -126,9 +122,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
 
-                frogView.setVisibility(View.GONE);
-                fabMenu.collapse();
-                floatingButtonOpen = false;
+                closeFloatingMenu();
 
             }
         });
@@ -159,9 +153,7 @@ public class MainActivity extends AppCompatActivity
 
                 if(floatingButtonOpen == true){
 
-                    frogView.setVisibility(View.GONE);
-                    fabMenu.collapse();
-                    floatingButtonOpen = false;
+                    closeFloatingMenu();
                 }
                 switch (position){
 
@@ -209,9 +201,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if(floatingButtonOpen == true){
+
+                closeFloatingMenu();
+        }
+        else{
+
             super.onBackPressed();
         }
+
+
     }
 
 
@@ -256,5 +256,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openFloatingMenu(){
+
+        frogView.setVisibility(View.VISIBLE);
+        floatingButtonOpen = true;
+        fabMenu.toggle();
+    }
+
+    private void closeFloatingMenu(){
+
+        fabMenu.collapse();
+        frogView.setVisibility(View.GONE);
+        floatingButtonOpen = false;
     }
 }

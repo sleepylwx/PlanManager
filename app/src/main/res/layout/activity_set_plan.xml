@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toolbar="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fragment_recent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_set_plan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_set_plan"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/textview_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="科目:"
+        android:textSize="10sp"
+        android:textColor="#000000"
+        android:padding="4dp"
+        android:layout_below="@id/appbar_set_plan"
+        />
+    <EditText
+        android:id="@+id/edittext_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text=""
+        android:layout_below="@id/textview_subject"
+        />
+    <TextView
+        android:id="@+id/textview_way"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="方式:"
+        android:textSize="10sp"
+        android:textColor="#000000"
+        android:padding="4dp"
+        android:layout_below="@id/edittext_subject"/>
+    <EditText
+        android:id="@+id/edittext_way"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text=""
+        android:layout_below="@id/textview_way"/>
+
+    <TextView
+        android:id="@+id/textview_endtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="截止日期："
+        android:textSize="10sp"
+        android:textColor="#000000"
+        android:padding="4dp"
+        android:layout_below="@id/edittext_way"
+        />
+
+    <EditText
+        android:id="@+id/edittext_endtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@id/textview_endtime"/>
+
+    <TextView
+        android:id="@+id/textview_importance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重要程度："
+        android:textSize="10sp"
+        android:textColor="#000000"
+        android:padding="4dp"
+        android:layout_below="@id/edittext_endtime"/>
+
+    <EditText
+        android:id="@+id/edittext_importance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@id/textview_importance"
+        />
+    <TextView
+        android:id="@+id/textview_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="内容："
+        android:textSize="10sp"
+        android:textColor="#000000"
+        android:padding="4dp"
+        android:layout_below="@id/edittext_importance"/>
+
+    <EditText
+        android:id="@+id/edittext_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="8"
+        android:textSize="20sp"
+        android:layout_below="@id/textview_content"
+         />
+    <Button
+        android:id="@+id/button_add_plan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加"
+
+        android:textSize="30sp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

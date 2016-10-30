@@ -69,4 +69,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         return this.datas;
     }
+
+    public void addData(UnFinishedStudyPlan unFinishedStudyPlan){
+
+        this.datas.add(unFinishedStudyPlan);
+    }
 }

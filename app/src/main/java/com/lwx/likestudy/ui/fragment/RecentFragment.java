@@ -62,14 +62,7 @@ public class RecentFragment extends BaseFragment implements RecentContract.View{
         madapter = new RecyclerViewAdapter(getActivity());
         //
 
-        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(1,1024,"math","write","content",2048,5));
-        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(2,1024,"math","write","contentsadasd"+
-                "asdasdsadsdsdsvdcvcvssdfdcscxcsdfsdcsfdfefdsafsfsdfsdvsdvcdsssssssssssssssssssssssssssssssssssssssssss"+
-                "在网上找了一下实现方法，有的说在adapter里添加回调接口来实现点击事件与长按事件。 \n" +
-                "不过经过测试，有时候会产生这样的现象：点击item跳转到下一个页面，再返回回来时， \n" +
-                "item的点击事件会失效。后来在Stack Overflow找到了新的方法。 \n" +
-                "原文链接如下：RecyclerView onClick。这里 贴上代码：",2048,5));
-        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(3,1024,"math","write","content",2048,5));
+
 
 
         recyclerView.setAdapter(madapter);
@@ -130,6 +123,12 @@ public class RecentFragment extends BaseFragment implements RecentContract.View{
         madapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onUnFinishedStudyPlanCreated(UnFinishedStudyPlan unFinishedStudyPlan){
+
+        madapter.addData(unFinishedStudyPlan);
+        madapter.notifyDataSetChanged();
+    }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
 

@@ -19,7 +19,10 @@ public interface RecentContract {
 
         void handleError(Throwable error);
 
+
         void onUnFinishedStudyPlansLoaded(List<UnFinishedStudyPlan> unFinishedStudyPlans);
+
+        void onUnFinishedStudyPlanCreated(UnFinishedStudyPlan unFinishedStudyPlan);
 
         void onUnFinishedStudyPlanDeleted(UnFinishedStudyPlan unFinishedStudyPlan);
 
@@ -29,6 +32,7 @@ public interface RecentContract {
     interface Presenter extends BasePresenter {
 
         void loadUnFinishedStudyPlans();
+
 
         void deleteUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan);
 

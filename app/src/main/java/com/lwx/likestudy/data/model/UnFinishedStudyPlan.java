@@ -35,9 +35,9 @@ public class UnFinishedStudyPlan implements Parcelable {
 
     }
 
-    public UnFinishedStudyPlan(int id, long createdTime, String subject, String way, String content,
+    public UnFinishedStudyPlan(long createdTime, String subject, String way, String content,
                                long endTime, int importance) {
-        this.id = id;
+
         this.createdTime = createdTime;
         this.subject = subject;
         this.way = way;

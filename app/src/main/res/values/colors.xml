@@ -10,4 +10,7 @@
     <color name="color_recyclerview_item">#fffdf5e6</color>
 
     <color name="color_frogview">#d0ffffff</color>
+
+    <color name="color_add_plan_button">#FFC0CB</color>
+    <color name="color_add_plan_button_selected">#FF69B4</color>
 </resources>

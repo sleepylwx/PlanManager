@@ -19,8 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.SelfLearingActivity"/>
-        <activity android:name=".ui.activity.SetPlanActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".ui.activity.SetPlanActivity" />
 
     </application>
 
