@@ -38,10 +38,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(MyViewHolder holder,int position){
 
         UnFinishedStudyPlan unFinishedStudyPlan = datas.get(position);
-        holder.textView.setText(unFinishedStudyPlan.getId() + " " + unFinishedStudyPlan.getCreatedTime()
-        +" " + unFinishedStudyPlan.getSubject() + " " + unFinishedStudyPlan.getWay() + "\n" +
-        unFinishedStudyPlan.getContent() + "\n" + unFinishedStudyPlan.getEndTime() + " " +
-        unFinishedStudyPlan.getImportance());
+        if(holder.headTextView != null)
+
+        holder.headTextView.setText(unFinishedStudyPlan.getId()+"\n"
+            + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
+             +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
+                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
+                + ".");
+        if(holder.bodyTextView != null)
+        holder.bodyTextView.setText("内容： " + unFinishedStudyPlan.getContent() +".");
     }
 
     @Override
@@ -52,11 +57,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textView;
+        TextView headTextView;
+        TextView bodyTextView;
         public MyViewHolder(View view){
 
             super(view);
-            textView = (TextView) view.findViewById(R.id.recyclerview_item_textview);
+            headTextView = (TextView) view.findViewById(R.id.recyclerview_item_textview_header);
+            bodyTextView = (TextView) view.findViewById(R.id.recyclerview_item_textview_body);
 
         }
     }
