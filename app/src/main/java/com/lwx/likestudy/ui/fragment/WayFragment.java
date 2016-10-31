@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by 36249 on 2016/10/27.
  */
-public class RecentFragment extends BaseFragment implements PlanContract.View{
+public class WayFragment extends BaseFragment implements PlanContract.View{
 
 
 
@@ -37,7 +37,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        View view = inflater.inflate(R.layout.fragment_recent,container,false);
+        View view = inflater.inflate(R.layout.fragment_way,container,false);
 
         return view;
     }
@@ -46,7 +46,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
 
         super.onViewCreated(view,savedInstanceState);
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_recent);
+        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_way);
         //implement
         madapter = new RecyclerViewAdapter(getActivity());
         //
@@ -76,7 +76,6 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
         PlanContract.Presenter presenter = MainPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
-        presenter.loadUnFinishedStudyPlans();
 
     }
 
@@ -120,7 +119,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
     public void onUnFinishedStudyPlansLoaded(List<UnFinishedStudyPlan> unFinishedStudyPlans){
 
         madapter.setDatas(unFinishedStudyPlans);
-        Log.e("recentload",String.valueOf(madapter.getDatas().size()));
+        Log.e("wayload",String.valueOf(madapter.getDatas().size()));
         madapter.notifyDataSetChanged();
     }
 
@@ -128,7 +127,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
     public void onUnFinishedStudyPlanCreated(UnFinishedStudyPlan unFinishedStudyPlan){
 
         madapter.addData(unFinishedStudyPlan);
-        Log.e("recentcreate",String.valueOf(madapter.getDatas().size()));
+        Log.e("waycreate",String.valueOf(madapter.getDatas().size()));
         madapter.notifyDataSetChanged();
     }
     @Override

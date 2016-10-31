@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by 36249 on 2016/10/28.
  */
-public interface RecentContract {
+public interface PlanContract {
 
     interface View extends BaseView<Presenter> {
 

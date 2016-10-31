@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +63,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void setDatas(List<UnFinishedStudyPlan> unFinishedStudyPlans){
 
-        this.datas = unFinishedStudyPlans;
+        datas = new ArrayList<>();
+        datas.addAll(unFinishedStudyPlans);
+
     }
 
     public List<UnFinishedStudyPlan> getDatas(){

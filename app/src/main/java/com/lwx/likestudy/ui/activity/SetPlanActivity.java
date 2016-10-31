@@ -8,8 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.contract.RecentContract;
+import com.lwx.likestudy.contract.PlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
+import com.lwx.likestudy.presenter.MainPresenter;
 import com.lwx.likestudy.ui.fragment.RecentFragmentWrapper;
 
 /**
@@ -25,7 +26,7 @@ public class SetPlanActivity extends AppCompatActivity {
     EditText importanceEditText;
     EditText contentEditText;
 
-    RecentContract.Presenter mPresenter;
+    PlanContract.Presenter mPresenter;
     @Override
     protected void onCreate(Bundle onSavedInstanceState){
 
@@ -41,7 +42,7 @@ public class SetPlanActivity extends AppCompatActivity {
                 finish();
             }
         });
-        mPresenter = RecentFragmentWrapper.getInstance().getPresenter();
+        mPresenter = MainPresenter.getInstance();
         subjectEditText = (EditText)findViewById(R.id.edittext_subject);
         wayEditText = (EditText)findViewById(R.id.edittext_way);
         endTimeEditText = (EditText)findViewById(R.id.edittext_endtime);

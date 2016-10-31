@@ -25,11 +25,8 @@ import com.lwx.likestudy.adapter.MainPagerAdapter;
 import com.lwx.likestudy.ui.fragment.RecentFragment;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.lwx.likestudy.ui.fragment.Test;
-
-import org.w3c.dom.Text;
-
-import butterknife.BindView;
+import com.lwx.likestudy.ui.fragment.SubjectFragment;
+import com.lwx.likestudy.ui.fragment.WayFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,11 +52,10 @@ public class MainActivity extends AppCompatActivity
 
         titles = getResources().getStringArray(R.array.titles);
         final Fragment[] fragments = new Fragment[titles.length];
-        Log.e("find",String.valueOf(titles.length));
-        for(int i = 0; i < titles.length; ++i){
-
-            fragments[i] = new RecentFragment();
-        }
+       // Log.e("find",String.valueOf(titles.length));
+        fragments[0] = new RecentFragment();
+        fragments[1] = new SubjectFragment();
+        fragments[2] = new WayFragment();
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager(),titles,fragments);
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);

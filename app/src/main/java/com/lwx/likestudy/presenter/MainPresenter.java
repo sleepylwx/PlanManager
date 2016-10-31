@@ -1,39 +1,56 @@
 package com.lwx.likestudy.presenter;
 
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
-import com.lwx.likestudy.contract.RecentContract;
+import com.lwx.likestudy.contract.PlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.data.source.DataRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
-import rx.subscriptions.Subscriptions;
 
 /**
- * Created by 36249 on 2016/10/28.
+ * Created by 36249 on 2016/10/31.
  */
-public class RecentPresenter implements RecentContract.Presenter{
+public class MainPresenter implements PlanContract.Presenter{
 
-    private RecentContract.View mView;
+
+    private List<PlanContract.View> mViews;
     private DataRepository mRepository;
     private CompositeSubscription mSubscriptions;
-    public RecentPresenter(RecentContract.View view){
+    private static MainPresenter sInstance;
 
-        this.mView = view;
+    //public static List<RecentContract.View> mViews;
+
+    private MainPresenter(){
+
+        mViews = new ArrayList<>();
         mRepository = DataRepository.getsIntance();
         mSubscriptions = new CompositeSubscription();
-        this.mView.setPresenter(this);
+        //view.setPresenter(this);
     }
 
 
+    public static MainPresenter getInstance(){
+
+        if(sInstance == null){
+
+            synchronized (MainPresenter.class){
+
+                if(sInstance == null){
+
+                    sInstance = new MainPresenter();
+                }
+            }
+        }
+
+
+        return sInstance;
+    }
     @Override
     public void subscribe(){
 
@@ -43,8 +60,8 @@ public class RecentPresenter implements RecentContract.Presenter{
     @Override
     public void unSubscribe(){
 
-        mView = null;
-        //mSubscriptions.clear();
+        mViews.clear();
+        mSubscriptions.clear();
     }
 
     @Override
@@ -58,25 +75,38 @@ public class RecentPresenter implements RecentContract.Presenter{
                     @Override
                     public void onStart(){
 
-                        mView.showLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).showLoading();
+                        }
                     }
                     @Override
                     public void onCompleted() {
 
-                        mView.hideLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
-                        mView.hideLoading();
-                        mView.handleError(e);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                            mViews.get(i).handleError(e);
+                        }
                     }
 
                     @Override
                     public void onNext(List<UnFinishedStudyPlan> unFinishedStudyPlans) {
 
-                        mView.onUnFinishedStudyPlansLoaded(unFinishedStudyPlans);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).onUnFinishedStudyPlansLoaded(unFinishedStudyPlans);
+                        }
+
                     }
                 });
         mSubscriptions.add(subscription);
@@ -93,25 +123,38 @@ public class RecentPresenter implements RecentContract.Presenter{
                     @Override
                     public void onStart(){
 
-                        mView.showLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).showLoading();
+                        }
                     }
                     @Override
                     public void onCompleted() {
 
-                        mView.hideLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
-                        mView.hideLoading();
-                        mView.handleError(e);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                            mViews.get(i).handleError(e);
+                        }
                     }
 
                     @Override
                     public void onNext(UnFinishedStudyPlan unFinishedStudyPlan) {
 
-                        mView.onUnFinishedStudyPlanCreated(unFinishedStudyPlan);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).onUnFinishedStudyPlanCreated(unFinishedStudyPlan);
+                        }
+
                     }
                 });
     }
@@ -126,25 +169,37 @@ public class RecentPresenter implements RecentContract.Presenter{
                     @Override
                     public void onStart(){
 
-                        mView.showLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).showLoading();
+                        }
                     }
                     @Override
                     public void onCompleted() {
 
-                        mView.hideLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
-                        mView.hideLoading();
-                        mView.handleError(e);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                            mViews.get(i).handleError(e);
+                        }
                     }
 
                     @Override
                     public void onNext(UnFinishedStudyPlan unFinishedStudyPlan) {
 
-                        mView.onUnFinishedStudyPlanDeleted(unFinishedStudyPlan);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).onUnFinishedStudyPlanDeleted(unFinishedStudyPlan);
+                        }
                     }
                 });
         mSubscriptions.add(subscription);
@@ -161,28 +216,45 @@ public class RecentPresenter implements RecentContract.Presenter{
                     @Override
                     public void onStart(){
 
-                        mView.showLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).showLoading();
+                        }
                     }
                     @Override
                     public void onCompleted() {
 
-                        mView.hideLoading();
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
-                        mView.hideLoading();
-                        mView.handleError(e);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).hideLoading();
+                            mViews.get(i).handleError(e);
+                        }
                     }
 
                     @Override
                     public void onNext(UnFinishedStudyPlan unFinishedStudyPlan) {
 
-                        mView.onUnFinishedStudyPlanUpdated(unFinishedStudyPlan);
+                        for(int i = 0; i < mViews.size(); ++i){
+
+                            mViews.get(i).onUnFinishedStudyPlanUpdated(unFinishedStudyPlan);
+                        }
                     }
                 });
         mSubscriptions.add(subscription);
     }
 
+    @Override
+    public void addView(PlanContract.View view){
+
+        mViews.add(view);
+    }
 }

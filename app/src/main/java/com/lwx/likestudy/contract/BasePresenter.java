@@ -5,6 +5,8 @@ package com.lwx.likestudy.contract;
  */
 interface BasePresenter  {
 
+    void addView(PlanContract.View view);
+
     void subscribe();
 
     void unSubscribe();
