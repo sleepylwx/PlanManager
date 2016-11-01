@@ -24,4 +24,9 @@
 
     </style>
 
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Dialog">
+
+        <item name="android:windowCloseOnTouchOutside">false</item>
+
+    </style>
 </resources>

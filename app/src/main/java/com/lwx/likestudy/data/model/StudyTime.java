@@ -17,9 +17,9 @@ public class StudyTime implements Parcelable {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
-    private long durateTime;
+    private String durateTime;
 
-    private long finishedTime;
+    private String finishedTime;
 
     private int satisfaction;
 
@@ -29,8 +29,8 @@ public class StudyTime implements Parcelable {
 
 
 
-    public StudyTime(int id, long durateTime, int satisfaction) {
-        this.id = id;
+    public StudyTime(String durateTime,String finishedTime, int satisfaction) {
+
         this.durateTime = durateTime;
 
         this.finishedTime = finishedTime;
@@ -49,19 +49,19 @@ public class StudyTime implements Parcelable {
         this.id = id;
     }
 
-    public long getDurateTime() {
+    public String getDurateTime() {
         return durateTime;
     }
 
-    public void setDurateTime(long durateTime) {
+    public void setDurateTime(String durateTime) {
         this.durateTime = durateTime;
     }
 
-    public long getFinishedTime() {
+    public String getFinishedTime() {
         return finishedTime;
     }
 
-    public void setFinishedTime(long finishedTime) {
+    public void setFinishedTime(String finishedTime) {
         this.finishedTime = finishedTime;
     }
 
@@ -76,8 +76,8 @@ public class StudyTime implements Parcelable {
     private void readFromParcel(Parcel in){
 
         this.id = in.readInt();
-        this.durateTime = in.readLong();
-        this.finishedTime = in.readLong();
+        this.durateTime = in.readString();
+        this.finishedTime = in.readString();
         this.satisfaction = in.readInt();
     }
 
@@ -90,8 +90,8 @@ public class StudyTime implements Parcelable {
     public void writeToParcel(Parcel dest,int flags){
 
         dest.writeInt(this.id);
-        dest.writeLong(this.durateTime);
-        dest.writeLong(this.finishedTime);
+        dest.writeString(this.durateTime);
+        dest.writeString(this.finishedTime);
         dest.writeInt(this.satisfaction);
     }
 

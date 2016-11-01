@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * Created by 36249 on 2016/10/27.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<RecyclerViewUnFinishedPlanAdapter.MyViewHolder> {
 
 
     Context context;
     List<UnFinishedStudyPlan> datas;
 
-    public RecyclerViewAdapter(Context context){
+    public RecyclerViewUnFinishedPlanAdapter(Context context){
 
         this.context = context;
 

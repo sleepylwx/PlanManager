@@ -14,44 +14,37 @@ import java.util.Calendar;
 public class TimeTickerThread implements Runnable {
 
     Handler handler;
-    long time;
-    public TimeTickerThread(Handler handler,long time){
+
+    public TimeTickerThread(Handler handler){
 
         this.handler = handler;
-        this.time = time;
+
     }
 
     @Override
     public void run(){
 
-        long startTime = time > 0 ? time : System.currentTimeMillis();
-        time = startTime;
-        long gapTime = startTime;
+
+
+        long curTime = System.currentTimeMillis();
+        long tempTime = curTime;
+
         while(SelfLearingActivity.isGoOn()){
 
-            long curTime = System.currentTimeMillis();
+            curTime = System.currentTimeMillis();
 
-            if(curTime - gapTime >= 1000){
+            if(curTime - tempTime >= 1000){
 
-
-
-                long hour =(curTime - startTime)/(1000*60*60);
-                long minute = (curTime - startTime)%(1000*60*60)/(1000*60);
-                long second = (curTime - startTime)%(1000*60)/1000;
                 Message message = new Message();
-                String sHour = hour <= 9 ? "0"+ hour: String.valueOf(hour);
-                String sMinute = minute <= 9 ? "0" + minute : String.valueOf(minute);
-                String sSecond = second <= 9 ? "0" + second :String.valueOf(second);
-                message.obj = sHour + " : " + sMinute + " : " + sSecond;
                 handler.sendMessage(message);
-                gapTime = curTime;
+                tempTime = curTime;
             }
+
+
+
         }
 
     }
 
-    public long getStartTime(){
 
-        return time;
-    }
 }

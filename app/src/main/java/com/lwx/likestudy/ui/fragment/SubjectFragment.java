@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.adapter.RecyclerViewAdapter;
+import com.lwx.likestudy.adapter.RecyclerViewUnFinishedPlanAdapter;
 import com.lwx.likestudy.contract.PlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.MainPresenter;
@@ -28,7 +28,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
     RecyclerView recyclerView;
 
-    RecyclerViewAdapter madapter;
+    RecyclerViewUnFinishedPlanAdapter madapter;
 
     PlanContract.Presenter mPresenter;
 
@@ -48,7 +48,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
         super.onViewCreated(view,savedInstanceState);
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_subject);
         //implement
-        madapter = new RecyclerViewAdapter(getActivity());
+        madapter = new RecyclerViewUnFinishedPlanAdapter(getActivity());
         //
 
 //        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,"数学","fasd",
