@@ -21,7 +21,7 @@ public class StudyTime implements Parcelable {
 
     private String finishedTime;
 
-    private int satisfaction;
+    private String satisfaction;
 
     public StudyTime() {
 
@@ -29,7 +29,7 @@ public class StudyTime implements Parcelable {
 
 
 
-    public StudyTime(String durateTime,String finishedTime, int satisfaction) {
+    public StudyTime(String durateTime,String finishedTime, String satisfaction) {
 
         this.durateTime = durateTime;
 
@@ -65,11 +65,11 @@ public class StudyTime implements Parcelable {
         this.finishedTime = finishedTime;
     }
 
-    public int getSatisfaction() {
+    public String getSatisfaction() {
         return satisfaction;
     }
 
-    public void setSatisfaction(int satisfaction) {
+    public void setSatisfaction(String satisfaction) {
         this.satisfaction = satisfaction;
     }
 
@@ -78,7 +78,7 @@ public class StudyTime implements Parcelable {
         this.id = in.readInt();
         this.durateTime = in.readString();
         this.finishedTime = in.readString();
-        this.satisfaction = in.readInt();
+        this.satisfaction = in.readString();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class StudyTime implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.durateTime);
         dest.writeString(this.finishedTime);
-        dest.writeInt(this.satisfaction);
+        dest.writeString(this.satisfaction);
     }
 
     public static final Parcelable.Creator<StudyTime>CREATOR = new Parcelable.Creator<StudyTime>(){

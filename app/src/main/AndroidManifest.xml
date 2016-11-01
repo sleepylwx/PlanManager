@@ -22,8 +22,9 @@
         <activity android:name=".ui.activity.SetPlanActivity" />
         <activity android:name=".ui.activity.StoreStudyTimeActivity"
             android:theme="@style/AppDialogTheme"
-            android:label="存入排行榜"/>
+            android:label="存入自习记录"/>
         <activity android:name=".ui.activity.SelfLearningTopActivity"/>
+        <activity android:name=".ui.activity.FinishPlanActivity"/>
     </application>
 
 </manifest>

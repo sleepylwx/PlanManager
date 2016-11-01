@@ -21,6 +21,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
+import com.lwx.likestudy.data.model.FinishedStudyPlan;
 import com.lwx.likestudy.ui.fragment.RecentFragment;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -101,7 +102,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        FloatingActionButton fabA = (FloatingActionButton)findViewById(R.id.action_a);
         FloatingActionButton fabB = (FloatingActionButton) findViewById(R.id.action_b);
+        FloatingActionButton fabC = (FloatingActionButton) findViewById(R.id.action_c);
+
+        fabA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, FinishPlanActivity.class);
+                startActivity(intent);
+                closeFloatingMenu();
+            }
+        });
         fabB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

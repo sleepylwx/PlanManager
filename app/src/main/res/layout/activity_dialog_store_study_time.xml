@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:gravity="center"
-        android:text="满意度" />
+        android:text="随手一写" />
 
     <EditText
         android:id="@+id/edittext_edit_saticfaction"

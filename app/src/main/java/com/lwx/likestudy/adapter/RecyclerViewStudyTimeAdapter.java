@@ -41,9 +41,9 @@ public class RecyclerViewStudyTimeAdapter extends RecyclerView.Adapter<RecyclerV
         StudyTime studyTime = datas.get(position);
         if(holder.bodyTextView != null){
 
-            holder.bodyTextView.setText(studyTime.getId()+" "
-                    + "自习持续时间： "+studyTime.getDurateTime()+"\n"
-            +"满意度： " + studyTime.getSatisfaction()
+            holder.bodyTextView.setText(studyTime.getId()+"\n"
+                    + "持续时间： "+studyTime.getDurateTime()+"\n"
+            +"随手一写： " + studyTime.getSatisfaction() + "\n"
                     + "日期： " + studyTime.getFinishedTime());
         }
 

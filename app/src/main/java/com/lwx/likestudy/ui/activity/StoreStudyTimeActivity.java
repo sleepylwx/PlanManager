@@ -45,12 +45,12 @@ public class StoreStudyTimeActivity extends AppCompatActivity {
                     Toast.makeText(StoreStudyTimeActivity.this,"存储数据失败",Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                int satisfaction = Integer.valueOf(editText.getText().toString());
+                String satisfaction = editText.getText().toString();
                 String durateTime = hour +":" + minute + ":" + second;
                 Calendar calendar = Calendar.getInstance();
                 String createTime = calendar.get(Calendar.YEAR) + "年"
                         + (calendar.get(Calendar.MONTH) +  1) + "月"
-                        + calendar.get(Calendar.DATE) + "日" +"\n"
+                        + calendar.get(Calendar.DATE) + "日" +" "
                         +calendar.get(Calendar.HOUR_OF_DAY) + ":"
                         +calendar.get(Calendar.MINUTE) + ":"
                         +calendar.get(Calendar.SECOND);
