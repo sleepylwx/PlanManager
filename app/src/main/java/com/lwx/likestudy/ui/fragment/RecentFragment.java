@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.RecyclerViewUnFinishedPlanAdapter;
 import com.lwx.likestudy.contract.PlanContract;
+
+import com.lwx.likestudy.contract.ViewChangeable;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.MainPresenter;
 
@@ -34,6 +36,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
 
     int mDeleteIndex;
     int mUpdateIndex;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -51,8 +54,6 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
         madapter = new RecyclerViewUnFinishedPlanAdapter(getActivity());
         //
 
-//        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,"数学","fasd",
-//                        "asdasdsa",1024,5));
 
 
         recyclerView.setAdapter(madapter);
@@ -144,6 +145,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
         madapter.getDatas().remove(mDeleteIndex);
         madapter.notifyItemRemoved(mDeleteIndex);
     }
+
 
 }
 

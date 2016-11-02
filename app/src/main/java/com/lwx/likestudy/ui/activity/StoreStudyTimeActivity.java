@@ -12,9 +12,7 @@ import android.widget.Toast;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.StudyTime;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
-import com.lwx.likestudy.utils.FormatTime;
-
-import java.util.Calendar;
+import com.lwx.likestudy.utils.Time;
 
 /**
  * Created by 36249 on 2016/11/1.
@@ -46,19 +44,12 @@ public class StoreStudyTimeActivity extends AppCompatActivity {
                     Toast.makeText(StoreStudyTimeActivity.this,"存储数据失败",Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                String sHour = FormatTime.formatTime(hour);
-                String sMinute = FormatTime.formatTime(hour);
-                String sSecond = FormatTime.formatTime(hour);
-                String satisfaction = editText.getText().toString();
-                String durateTime = sHour +":" + sMinute + ":" + sSecond;
-                Calendar calendar = Calendar.getInstance();
 
-                String createTime = calendar.get(Calendar.YEAR) + "年"
-                        + (calendar.get(Calendar.MONTH) +  1) + "月"
-                        + calendar.get(Calendar.DATE) + "日" +" "
-                        +calendar.get(Calendar.HOUR_OF_DAY) + ":"
-                        +calendar.get(Calendar.MINUTE) + ":"
-                        +calendar.get(Calendar.SECOND);
+                String satisfaction = editText.getText().toString();
+                String durateTime = Time.formatTime(hour,minute,second);
+
+
+                String createTime = Time.getCurrentTimeString();
                 long result = LiteOrmHelper.getsInstance().save(new StudyTime(durateTime,createTime,satisfaction));
                 if(result <= 0){
                     Toast.makeText(StoreStudyTimeActivity.this,"存储数据失败",Toast.LENGTH_SHORT).show();

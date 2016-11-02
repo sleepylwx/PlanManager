@@ -11,6 +11,7 @@ import com.lwx.likestudy.R;
 import com.lwx.likestudy.contract.PlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.MainPresenter;
+import com.lwx.likestudy.utils.Time;
 
 /**
  * Created by 36249 on 2016/10/29.
@@ -55,14 +56,12 @@ public class SetPlanActivity extends AppCompatActivity {
 
                 String subject = subjectEditText.getText().toString();
                 String way = wayEditText.getText().toString();
-                long endTime = 1024;
+                String endTime = endTimeEditText.getText().toString();
                 int importance = Integer.valueOf(importanceEditText.getText().toString());
                 String content = contentEditText.getText().toString();
-//                LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,subject,way,
-//                        content,endTime,importance));
-//                DataRepository.getsIntance().create(new UnFinishedStudyPlan(0,subject,way,
-//                        content,endTime,importance));
-                mPresenter.createUnFinishedStudyPlan(new UnFinishedStudyPlan(0,subject,way,content,endTime,importance));
+
+                mPresenter.createUnFinishedStudyPlan(new UnFinishedStudyPlan(Time.getCurrentTimeString()
+                        ,subject,way,content,endTime,importance));
                 finish();
             }
         });

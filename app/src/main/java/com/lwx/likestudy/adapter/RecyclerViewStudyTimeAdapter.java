@@ -16,6 +16,7 @@ import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.StudyTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -85,6 +86,7 @@ public class RecyclerViewStudyTimeAdapter extends RecyclerView.Adapter<RecyclerV
         this.datas = new ArrayList<>();
         this.indexes = new ArrayList<>();
         this.datas.addAll(datas);
+
         Collections.sort(this.datas, new Comparator<StudyTime>() {
             @Override
             public int compare(StudyTime studyTime, StudyTime t1) {

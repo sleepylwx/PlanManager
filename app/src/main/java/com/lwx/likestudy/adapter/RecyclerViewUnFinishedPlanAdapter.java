@@ -84,4 +84,6 @@ public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<Recy
 
         this.datas.add(unFinishedStudyPlan);
     }
+
+
 }

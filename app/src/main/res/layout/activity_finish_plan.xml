@@ -37,13 +37,14 @@
         android:textSize="15dp"
         android:textColor="#000000"/>
     <TextView
+        android:id="@+id/textview_finish_plan_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="\n\n是否开始计划？"
         android:textSize="20dp"
         android:textColor="#000A10"
         android:gravity="center"
-        android:layout_below="@id/textview_selected_plan"/>
+        android:layout_below="@id/textview_selected_plan" />
     <Button
         android:id="@+id/button_confirm_continue"
         android:layout_width="match_parent"

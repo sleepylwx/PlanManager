@@ -18,7 +18,7 @@ public class UnFinishedStudyPlan implements Parcelable {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
-    private long createdTime;
+    private String createdTime;
 
     private String subject;
 
@@ -26,7 +26,7 @@ public class UnFinishedStudyPlan implements Parcelable {
 
     private String content;
 
-    private long endTime;
+    private String endTime;
 
 
 
@@ -35,8 +35,8 @@ public class UnFinishedStudyPlan implements Parcelable {
 
     }
 
-    public UnFinishedStudyPlan(long createdTime, String subject, String way, String content,
-                               long endTime, int importance) {
+    public UnFinishedStudyPlan(String createdTime, String subject, String way, String content,
+                               String endTime, int importance) {
 
         this.createdTime = createdTime;
         this.subject = subject;
@@ -58,11 +58,11 @@ public class UnFinishedStudyPlan implements Parcelable {
         this.id = id;
     }
 
-    public long getCreatedTime() {
+    public String getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(long createdTime) {
+    public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
     }
 
@@ -90,11 +90,11 @@ public class UnFinishedStudyPlan implements Parcelable {
         this.content = content;
     }
 
-    public long getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -109,11 +109,11 @@ public class UnFinishedStudyPlan implements Parcelable {
     private void readFromParcel(Parcel in){
 
         this.id = in.readInt();
-        this.createdTime = in.readLong();
+        this.createdTime = in.readString();
         this.subject = in.readString();
         this.way = in.readString();
         this.content = in.readString();
-        this.endTime = in.readLong();
+        this.endTime = in.readString();
         this.importance = in.readInt();
     }
 
@@ -125,11 +125,11 @@ public class UnFinishedStudyPlan implements Parcelable {
     public void writeToParcel(Parcel dest,int flags){
 
         dest.writeInt(this.id);
-        dest.writeLong(this.createdTime);
+        dest.writeString(this.createdTime);
         dest.writeString(this.subject);
         dest.writeString(this.way);
         dest.writeString(this.content);
-        dest.writeLong(this.endTime);
+        dest.writeString(this.endTime);
         dest.writeInt(this.importance);
     }
 

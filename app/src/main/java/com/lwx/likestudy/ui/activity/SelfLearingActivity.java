@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.utils.FormatTime;
+import com.lwx.likestudy.utils.Time;
 import com.lwx.likestudy.utils.TimeTickerThread;
 
 /**
@@ -28,7 +28,9 @@ public class SelfLearingActivity extends AppCompatActivity {
     int minute = 0;
     int second = 0;
     TimeTickerThread thread;
+    String sumTime;
     private static  boolean IS_GO_ON = false;
+    int num;
     Handler handler = new Handler(){
 
         @Override
@@ -48,11 +50,12 @@ public class SelfLearingActivity extends AppCompatActivity {
         toolbar.setTitle("自习模式");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        num = getIntent().getIntExtra("index",0);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                toStoreDialog();
+                exit();
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +86,7 @@ public class SelfLearingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
 
-        toStoreDialog();
+        exit();
     }
     public static boolean isGoOn(){
 
@@ -104,10 +107,10 @@ public class SelfLearingActivity extends AppCompatActivity {
         if(hour >= 24){
             hour = 0;
         }
-        String hour = FormatTime.formatTime(this.hour);
-        String minute = FormatTime.formatTime(this.minute);
-        String second = FormatTime.formatTime(this.second);
-        textView.setText(hour + " : " + minute + " : " + second);
+
+        sumTime = Time.formatTimeWithSpace(this.hour,this.minute,this.second);
+
+        textView.setText(sumTime);
     }
 
     @Override
@@ -116,7 +119,7 @@ public class SelfLearingActivity extends AppCompatActivity {
         IS_GO_ON = false;
     }
 
-    public void toStoreDialog(){
+    private void toStoreDialog(){
         Log.e("find",String.valueOf(hour+ "."+minute +"."+ second));
         if(hour == 0 && minute == 0 && second == 0){
             finish();
@@ -129,4 +132,21 @@ public class SelfLearingActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void exit() {
+
+        if (num == 0) {
+
+            toStoreDialog();
+        } else if (num == 1) {
+
+
+            Intent intent = new Intent();
+            intent.putExtra("duratetime",sumTime);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+    }
+
+
 }
