@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
+import com.lwx.likestudy.utils.FormatTime;
 import com.lwx.likestudy.utils.TimeTickerThread;
 
 /**
@@ -103,9 +104,9 @@ public class SelfLearingActivity extends AppCompatActivity {
         if(hour >= 24){
             hour = 0;
         }
-        String hour = this.hour <= 9? "0" + this.hour:String.valueOf(this.hour);
-        String minute = this.minute <= 9 ? "0" + this.minute : String.valueOf(this.minute);
-        String second = this.second <=9? "0" + this.second : String.valueOf(this.second);
+        String hour = FormatTime.formatTime(this.hour);
+        String minute = FormatTime.formatTime(this.minute);
+        String second = FormatTime.formatTime(this.second);
         textView.setText(hour + " : " + minute + " : " + second);
     }
 

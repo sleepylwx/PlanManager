@@ -2,17 +2,22 @@ package com.lwx.likestudy.adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.StudyTime;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,7 +27,7 @@ public class RecyclerViewStudyTimeAdapter extends RecyclerView.Adapter<RecyclerV
 
     Context context;
     List<StudyTime> datas;
-
+    List<Integer> indexes;
     public RecyclerViewStudyTimeAdapter(Context context){
 
         this.context = context;
@@ -73,8 +78,47 @@ public class RecyclerViewStudyTimeAdapter extends RecyclerView.Adapter<RecyclerV
 
     public void setDatas(List<StudyTime> datas){
 
+        if(datas == null){
+            Toast.makeText(context,"初始化数据失败",Toast.LENGTH_SHORT).show();
+            return;
+        }
         this.datas = new ArrayList<>();
+        this.indexes = new ArrayList<>();
         this.datas.addAll(datas);
+        Collections.sort(this.datas, new Comparator<StudyTime>() {
+            @Override
+            public int compare(StudyTime studyTime, StudyTime t1) {
+
+                int temp = studyTime.getDurateTime().compareTo(t1.getDurateTime());
+                if(temp > 0){
+
+                    return -1;
+                }
+                else if(temp == 0){
+
+                    return 0;
+                }
+                else{
+                    return  1;
+                }
+
+            }
+        });
+        for(int i = 0 ; i < this.datas.size(); ++i){
+
+            this.indexes.add(this.datas.get(i).getId());
+        }
+        for(int i = 0; i < this.datas.size(); ++i){
+
+            this.datas.get(i).setId(i+1);
+        }
+
         Log.e("adapter",String.valueOf(datas.size()));
+    }
+
+    public void clearDatas(){
+
+        this.datas = new ArrayList<>();
+        this.indexes = new ArrayList<>();
     }
 }

@@ -11,7 +11,6 @@ import com.lwx.likestudy.R;
 import com.lwx.likestudy.contract.PlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.MainPresenter;
-import com.lwx.likestudy.ui.fragment.RecentFragmentWrapper;
 
 /**
  * Created by 36249 on 2016/10/29.
