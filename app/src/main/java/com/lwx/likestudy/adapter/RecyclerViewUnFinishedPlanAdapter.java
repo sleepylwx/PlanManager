@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
+import com.lwx.likestudy.data.model.FinishedStudyPlan;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -40,7 +43,7 @@ public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<Recy
         UnFinishedStudyPlan unFinishedStudyPlan = datas.get(position);
         if(holder.headTextView != null)
 
-        holder.headTextView.setText(unFinishedStudyPlan.getId()+"\n"
+        holder.headTextView.setText(unFinishedStudyPlan.getIndex()+"\n"
             + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
              +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
                 + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
@@ -73,6 +76,30 @@ public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<Recy
         datas = new ArrayList<>();
         datas.addAll(unFinishedStudyPlans);
 
+//        Collections.sort(this.datas, new Comparator<UnFinishedStudyPlan>() {
+//            @Override
+//            public int compare(UnFinishedStudyPlan studyTime, UnFinishedStudyPlan t1) {
+//
+//                int temp = studyTime.getCreatedTime().compareTo(t1.getCreatedTime());
+//                if(temp > 0){
+//
+//                    return -1;
+//                }
+//                else if(temp == 0){
+//
+//                    return 0;
+//                }
+//                else{
+//                    return  1;
+//                }
+//
+//            }
+//        });
+//        for(int i = 0; i < this.datas.size(); ++i){
+//
+//            this.datas.get(i).setIndex(i+1);
+//        }
+
     }
 
     public List<UnFinishedStudyPlan> getDatas(){
@@ -85,5 +112,33 @@ public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<Recy
         this.datas.add(unFinishedStudyPlan);
     }
 
+    public void notifyChanged(){
 
+
+        Collections.sort(this.datas, new Comparator<UnFinishedStudyPlan>() {
+            @Override
+            public int compare(UnFinishedStudyPlan studyTime, UnFinishedStudyPlan t1) {
+
+                int temp = studyTime.getCreatedTime().compareTo(t1.getCreatedTime());
+                if(temp > 0){
+
+                    return -1;
+                }
+                else if(temp == 0){
+
+                    return 0;
+                }
+                else{
+                    return  1;
+                }
+
+            }
+        });
+
+        for(int i = 0; i < datas.size(); ++i){
+
+            datas.get(i).setIndex(i+1);
+        }
+        notifyDataSetChanged();
+    }
 }

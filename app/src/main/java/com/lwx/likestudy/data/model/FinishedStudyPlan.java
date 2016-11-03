@@ -3,9 +3,12 @@ package com.lwx.likestudy.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.litesuits.orm.db.annotation.Ignore;
+import com.litesuits.orm.db.annotation.Mapping;
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
+import com.litesuits.orm.db.enums.Relation;
 
 /**
  * Created by 36249 on 2016/10/28.
@@ -23,7 +26,17 @@ public class FinishedStudyPlan  implements Parcelable {
 
     private int satisfaction;
 
-    UnFinishedStudyPlan plan;
+
+    private String createdTime;
+
+    private String subject;
+
+    private String way;
+    private String content;
+    private String endTime;
+    private int importance;
+    @Ignore
+    private int index;
 
     public FinishedStudyPlan() {
 
@@ -34,7 +47,14 @@ public class FinishedStudyPlan  implements Parcelable {
         this.durateTime = durateTime;
         this.finishedTime = finishedTime;
         this.satisfaction = satisfaction;
-        this.plan = plan;
+        this.createdTime = plan.getCreatedTime();
+        this.subject = plan.getSubject();
+        this.way = plan.getWay();
+        this.content = plan.getContent();
+        this.endTime = plan.getEndTime();
+        this.importance = plan.getImportance();
+//        this.plan = new UnFinishedStudyPlan(plan.getCreatedTime(),plan.getSubject(),
+//                plan.getWay(),plan.getContent(),plan.getEndTime(),plan.getImportance());
     }
 
     public FinishedStudyPlan(Parcel in){
@@ -74,12 +94,61 @@ public class FinishedStudyPlan  implements Parcelable {
         this.satisfaction = satisfaction;
     }
 
-    public UnFinishedStudyPlan getPlan() {
-        return plan;
+
+    public String getCreatedTime() {
+        return createdTime;
     }
 
-    public void setPlan(UnFinishedStudyPlan plan) {
-        this.plan = plan;
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getWay() {
+        return way;
+    }
+
+    public void setWay(String way) {
+        this.way = way;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getImportance() {
+        return importance;
+    }
+
+    public void setImportance(int importance) {
+        this.importance = importance;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     private void readFromParcel(Parcel in){
@@ -88,7 +157,12 @@ public class FinishedStudyPlan  implements Parcelable {
         this.durateTime = in.readString();
         this.finishedTime = in.readString();
         this.satisfaction = in.readInt();
-        this.plan = in.readParcelable(UnFinishedStudyPlan.class.getClassLoader());
+        this.createdTime = in.readString();
+        this.subject = in.readString();
+        this.way = in.readString();
+        this.content = in.readString();
+        this.endTime = in.readString();
+        this.importance = in.readInt();
 
     }
 
@@ -104,7 +178,12 @@ public class FinishedStudyPlan  implements Parcelable {
         dest.writeString(this.durateTime);
         dest.writeString(this.finishedTime);
         dest.writeInt(this.satisfaction);
-        dest.writeParcelable(this.plan,flags);
+        dest.writeString(this.createdTime);
+        dest.writeString(this.subject);
+        dest.writeString(this.way);
+        dest.writeString(this.content);
+        dest.writeString(this.endTime);
+        dest.writeInt(this.importance);
     }
 
     public static final Parcelable.Creator<FinishedStudyPlan>CREATOR = new Parcelable.Creator<FinishedStudyPlan>(){

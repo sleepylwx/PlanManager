@@ -250,8 +250,10 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_finish_plan_top) {
 
+            Intent intent = new Intent(this,FinishedPlanTopActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_selflearning_top) {
 
             Intent intent = new Intent(this,SelfLearningTopActivity.class);

@@ -3,6 +3,7 @@ package com.lwx.likestudy.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.litesuits.orm.db.annotation.Ignore;
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
@@ -23,6 +24,8 @@ public class StudyTime implements Parcelable {
 
     private String satisfaction;
 
+    @Ignore
+    private int index;
     public StudyTime() {
 
     }
@@ -71,6 +74,14 @@ public class StudyTime implements Parcelable {
 
     public void setSatisfaction(String satisfaction) {
         this.satisfaction = satisfaction;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     private void readFromParcel(Parcel in){

@@ -122,7 +122,8 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
 
         madapter.setDatas(unFinishedStudyPlans);
         Log.e("recentload",String.valueOf(madapter.getDatas().size()));
-        madapter.notifyDataSetChanged();
+        madapter.notifyChanged();
+        //madapter.notifyDataSetChanged();
     }
 
     @Override
@@ -130,20 +131,23 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
 
         madapter.addData(unFinishedStudyPlan);
         Log.e("recentcreate",String.valueOf(madapter.getDatas().size()));
-        madapter.notifyDataSetChanged();
+        madapter.notifyChanged();
+       // madapter.notifyDataSetChanged();
     }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
 
         madapter.getDatas().set(mUpdateIndex,unFinishedStudyPlan);
+        //madapter.notifyChanged();
         madapter.notifyItemChanged(mUpdateIndex);
     }
 
     @Override
     public void onUnFinishedStudyPlanDeleted(UnFinishedStudyPlan unFinishedStudyPlan){
 
-        madapter.getDatas().remove(mDeleteIndex);
-        madapter.notifyItemRemoved(mDeleteIndex);
+        madapter.getDatas().remove(unFinishedStudyPlan);
+        madapter.notifyChanged();
+        //madapter.notifyItemRemoved(mDeleteIndex);
     }
 
 
