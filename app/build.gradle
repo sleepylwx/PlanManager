@@ -30,6 +30,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'io.reactivex:rxjava:1.1.9'
     compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:+'
     compile project(':library')
 
 }

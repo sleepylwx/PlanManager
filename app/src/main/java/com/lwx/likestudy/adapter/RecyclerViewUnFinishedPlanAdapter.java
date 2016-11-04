@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.data.model.FinishedStudyPlan;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<Recy
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
 
-        MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item,parent,false));
+        MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.listview_recent_item,parent,false));
         return holder;
     }
 
