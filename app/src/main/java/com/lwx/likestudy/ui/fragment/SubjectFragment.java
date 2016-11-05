@@ -1,20 +1,29 @@
 package com.lwx.likestudy.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.RecyclerViewUnFinishedPlanAdapter;
+import com.lwx.likestudy.adapter.SubjectPlanAdapter;
 import com.lwx.likestudy.contract.PlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.MainPresenter;
+import com.lwx.likestudy.ui.activity.SetPlanActivity;
+import com.lwx.likestudy.utils.ClickRecord;
 
 import java.util.List;
 
@@ -26,14 +35,14 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
 
 
-    RecyclerView recyclerView;
+    ExpandableListView expandableListView;
 
-    RecyclerViewUnFinishedPlanAdapter madapter;
+    SubjectPlanAdapter madapter;
 
     PlanContract.Presenter mPresenter;
 
-    int mDeleteIndex;
-    int mUpdateIndex;
+    private static final int UPDATE_DATE = 0;
+    private static final int DELETE_DATE = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -46,32 +55,31 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
 
         super.onViewCreated(view,savedInstanceState);
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_subject);
-        //implement
-        madapter = new RecyclerViewUnFinishedPlanAdapter(getActivity());
+        expandableListView = (ExpandableListView) getActivity().findViewById(R.id.expandablelistview_subject);
+
+        madapter = new SubjectPlanAdapter(getActivity());
+        expandableListView.setAdapter(madapter);
         //
 
-//        LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(0,"数学","fasd",
-//                        "asdasdsa",1024,5));
+        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ClickRecord clickRecord = (ClickRecord) view.getTag();
+                if(clickRecord.getChildPosition() == -1){
+
+                    return false;
+                }
+                else{
 
 
-        recyclerView.setAdapter(madapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(getActivity(),recyclerView,
-                new RecyclerViewItemClickListener.OnItemClickListener(){
+                    return false;
+                }
 
-                    @Override
-                    public void onItemClick(View view,int position){
+            }
+        });
 
 
-                    }
-
-                    @Override
-                    public void onItemLongClick(View view,int position){
-
-                    }
-                }));
-        recyclerView.addItemDecoration(new DividerItemDecoration());
 
         PlanContract.Presenter presenter = MainPresenter.getInstance();
         setPresenter(presenter);
@@ -117,32 +125,91 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
     @Override
     public void onUnFinishedStudyPlansLoaded(List<UnFinishedStudyPlan> unFinishedStudyPlans){
 
-        madapter.setDatas(unFinishedStudyPlans);
-        Log.e("Subjectload",String.valueOf(madapter.getDatas().size()));
-        madapter.notifyDataSetChanged();
+        madapter.itemChanged();
+//        madapter.setDatas(unFinishedStudyPlans);
+//        Log.e("Subjectload",String.valueOf(madapter.getDatas().size()));
+//        madapter.notifyDataSetChanged();
     }
 
     @Override
     public void onUnFinishedStudyPlanCreated(UnFinishedStudyPlan unFinishedStudyPlan){
 
-        madapter.addData(unFinishedStudyPlan);
-        Log.e("subjectcreate",String.valueOf(madapter.getDatas().size()));
-        madapter.notifyDataSetChanged();
+        madapter.itemChanged();
+//        madapter.addData(unFinishedStudyPlan);
+//        Log.e("subjectcreate",String.valueOf(madapter.getDatas().size()));
+//        madapter.notifyDataSetChanged();
     }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
-
-        madapter.getDatas().set(mUpdateIndex,unFinishedStudyPlan);
-        madapter.notifyItemChanged(mUpdateIndex);
+//
+        madapter.itemChanged();
+//        madapter.getDatas().set(mUpdateIndex,unFinishedStudyPlan);
+//        madapter.notifyItemChanged(mUpdateIndex);
     }
 
     @Override
     public void onUnFinishedStudyPlanDeleted(UnFinishedStudyPlan unFinishedStudyPlan){
 
-        madapter.getDatas().remove(mDeleteIndex);
-        madapter.notifyItemRemoved(mDeleteIndex);
+        madapter.itemChanged();
+//        madapter.getDatas().remove(mDeleteIndex);
+//        madapter.notifyItemRemoved(mDeleteIndex);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo){
+
+        super.onCreateContextMenu(menu,v,menuInfo);
+
+        ExpandableListView.ExpandableListContextMenuInfo info =
+                (ExpandableListView.ExpandableListContextMenuInfo)menuInfo;
+
+        int type = ExpandableListView.getPackedPositionType(info.packedPosition);
+        if(type == ExpandableListView.PACKED_POSITION_TYPE_CHILD){
+
+            menu.add(0,UPDATE_DATE , Menu.NONE, "更新计划");
+            menu.add(0,DELETE_DATE, Menu.NONE, "删除计划");
+        }
+
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+
+        int id = item.getItemId();
+        final ExpandableListView.ExpandableListContextMenuInfo info =
+                (ExpandableListView.ExpandableListContextMenuInfo)item.getMenuInfo();
+        int group = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+        int child = ExpandableListView.getPackedPositionChild(info.packedPosition);
+        if(id == UPDATE_DATE){
+
+            UnFinishedStudyPlan unFinishedStudyPlan = madapter.getData(group,child);
+            Intent intent = new Intent(getActivity(), SetPlanActivity.class);
+            intent.putExtra("source",unFinishedStudyPlan);
+            startActivity(intent);
+        }
+        else if(id == DELETE_DATE){
+
+
+        }
+
+        super.onContextItemSelected(item);
+
+        return true;
+    }
+
+    @Override
+    public void registeMenu(){
+
+        this.registerForContextMenu(expandableListView);
+    }
+
+    @Override
+    public void unRegisteMenu(){
+
+        this.unregisterForContextMenu(expandableListView);
+    }
 }
 
 

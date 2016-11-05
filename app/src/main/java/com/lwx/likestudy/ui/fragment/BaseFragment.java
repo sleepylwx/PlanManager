@@ -13,7 +13,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by 36249 on 2016/10/29.
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     private CompositeSubscription mSubscriptions;
 
@@ -58,4 +58,11 @@ public class BaseFragment extends Fragment {
 
         mSubscriptions.add(subscription);
     }
+
+    public abstract  void registeMenu();
+
+
+
+    public abstract void unRegisteMenu();
+
 }

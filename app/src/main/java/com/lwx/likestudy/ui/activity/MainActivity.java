@@ -22,6 +22,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
+import com.lwx.likestudy.ui.fragment.BaseFragment;
 import com.lwx.likestudy.ui.fragment.RecentFragment;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 
 
         titles = getResources().getStringArray(R.array.titles);
-        final Fragment[] fragments = new Fragment[titles.length];
+        final BaseFragment[] fragments = new BaseFragment[titles.length];
        // Log.e("find",String.valueOf(titles.length));
         fragments[0] = new RecentFragment();
         fragments[1] = new SubjectFragment();
@@ -164,21 +165,28 @@ public class MainActivity extends AppCompatActivity
 
                     closeFloatingMenu();
                 }
+
+
                 switch (position){
 
                     case 0:
                         toolbar.setTitle(titles[0]);
                         viewPager.setCurrentItem(position);
+
                         break;
                     case 1:
                         toolbar.setTitle(titles[1]);
                         viewPager.setCurrentItem(position);
+                        fragments[0].unRegisteMenu();
+                        fragments[position].registeMenu();
                         break;
                     case 2:
                         toolbar.setTitle(titles[2]);
                         viewPager.setCurrentItem(position);
                         break;
                 }
+
+
             }
 
             @Override

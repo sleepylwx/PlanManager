@@ -21,8 +21,10 @@ import com.lwx.likestudy.adapter.RecentPlanAdapter;
 import com.lwx.likestudy.contract.PlanContract;
 
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
+import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.presenter.MainPresenter;
 import com.lwx.likestudy.ui.activity.SetPlanActivity;
+import com.lwx.likestudy.utils.Time;
 
 
 import java.util.List;
@@ -43,7 +45,8 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
 
     int mDeleteIndex;
     int mUpdateIndex;
-
+    private static final int UPDATE_DATA = 0;
+    private static final int DELETE_DATA = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -57,7 +60,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
 
         super.onViewCreated(view,savedInstanceState);
 
-//        for(int i = 0; i < 2000; ++i){
+//        for(int i = 0; i < 500; ++i){
 //            LiteOrmHelper.getsInstance().save(new UnFinishedStudyPlan(Time.getCurrentTimeString()
 //                    +"",i+"",i+"",i+"",i+"",i));
 //        }
@@ -77,12 +80,12 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
             }
         });
 
-        this.registerForContextMenu(listView);
+
         PlanContract.Presenter presenter = MainPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
         presenter.loadUnFinishedStudyPlans();
-
+        this.registerForContextMenu(listView);
     }
 
     @Override
@@ -164,8 +167,8 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
                                     ContextMenu.ContextMenuInfo menuInfo){
 
         super.onCreateContextMenu(menu,v,menuInfo);
-        menu.add(0, 0, Menu.NONE, "更新计划");
-        menu.add(0, 1, Menu.NONE, "删除计划");
+        menu.add(0, UPDATE_DATA, Menu.NONE, "更新计划");
+        menu.add(0, DELETE_DATA, Menu.NONE, "删除计划");
 
     }
 
@@ -175,14 +178,14 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
         final AdapterView.AdapterContextMenuInfo  menuInfo =
                 (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
-        if(item.getItemId() == 0){
+        if(item.getItemId() == UPDATE_DATA){
 
             UnFinishedStudyPlan unFinishedStudyPlan = madapter.getDatas().get(menuInfo.position);
             Intent intent = new Intent(getActivity(), SetPlanActivity.class);
             intent.putExtra("source",unFinishedStudyPlan);
             startActivity(intent);
         }
-        else if(item.getItemId() == 1){
+        else if(item.getItemId() == DELETE_DATA){
 
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
@@ -212,6 +215,17 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
         return true;
     }
 
+    @Override
+    public void registeMenu(){
+
+        this.registerForContextMenu(listView);
+    }
+
+    @Override
+    public void unRegisteMenu(){
+
+        this.unregisterForContextMenu(listView);
+    }
 }
 
 

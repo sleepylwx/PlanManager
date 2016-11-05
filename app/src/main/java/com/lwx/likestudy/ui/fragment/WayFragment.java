@@ -144,6 +144,16 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
         madapter.notifyItemRemoved(mDeleteIndex);
     }
 
+
+    public void registeMenu(){
+
+        this.registerForContextMenu(recyclerView);
+    }
+
+    public void unRegisteMenu(){
+
+        this.unregisterForContextMenu(recyclerView);
+    }
 }
 
 

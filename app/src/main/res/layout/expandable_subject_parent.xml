@@ -6,6 +6,11 @@
         android:id="@+id/textview_subject_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#000000"/>
+        android:textSize="30sp"
+        android:textColor="#0f000f"
+
+        android:paddingLeft="50dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="50dp"/>
 </LinearLayout>

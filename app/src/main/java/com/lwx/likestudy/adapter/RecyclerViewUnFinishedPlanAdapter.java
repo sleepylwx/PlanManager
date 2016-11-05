@@ -64,8 +64,8 @@ public class RecyclerViewUnFinishedPlanAdapter extends RecyclerView.Adapter<Recy
         public MyViewHolder(View view){
 
             super(view);
-            headTextView = (TextView) view.findViewById(R.id.recyclerview_item_textview_header);
-            bodyTextView = (TextView) view.findViewById(R.id.recyclerview_item_textview_body);
+            headTextView = (TextView) view.findViewById(R.id.listview_item_textview_header);
+            bodyTextView = (TextView) view.findViewById(R.id.listview_item_textview_body);
 
         }
     }

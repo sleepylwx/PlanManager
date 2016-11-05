@@ -9,6 +9,8 @@
         android:textSize="20sp"
         android:textColor = "#000000"
         android:text="helloworld"
+
+
         />
     <TextView
         android:id="@+id/listview_item_textview_body"
