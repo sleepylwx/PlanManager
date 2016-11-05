@@ -51,11 +51,11 @@ public class RecentPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.headTextView.setText(unFinishedStudyPlan.getIndex()+"\n"
-                + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
-                +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
-                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                + ".");
-        viewHolder.bodyTextView.setText("内容： " + unFinishedStudyPlan.getContent() +".");
+                + "科目： " + unFinishedStudyPlan.getSubject() + "\n" + "方式： "+unFinishedStudyPlan.getWay()
+                +"\n" + "重要性： " + unFinishedStudyPlan.getImportance() + "\n"
+                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + "\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
+                );
+        viewHolder.bodyTextView.setText("内容： " + unFinishedStudyPlan.getContent());
 
         return view;
     }

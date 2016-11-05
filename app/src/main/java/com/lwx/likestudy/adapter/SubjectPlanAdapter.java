@@ -142,10 +142,10 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
                 .get(groupPosition)
                 .get(childPosition);
         childHolder.textView.setText(unFinishedStudyPlan.getIndex()+"\n"
-                + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
-                +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
-                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                + ".+\n"+ "内容： " + unFinishedStudyPlan.getContent() + ".");
+                + "科目： " + unFinishedStudyPlan.getSubject() + "\n" + "方式： "+unFinishedStudyPlan.getWay()
+                +"\n" + "重要性： " + unFinishedStudyPlan.getImportance() + "\n"
+                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + "\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
+                + "\n"+ "内容： " + unFinishedStudyPlan.getContent());
 
         return convertView;
 

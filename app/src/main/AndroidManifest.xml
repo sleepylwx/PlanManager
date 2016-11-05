@@ -26,6 +26,7 @@
         <activity android:name=".ui.activity.SelfLearningTopActivity"/>
         <activity android:name=".ui.activity.FinishPlanActivity"/>
         <activity android:name=".ui.activity.FinishedPlanTopActivity"/>
+        <activity android:name=".ui.activity.InformationActivity"/>
     </application>
 
 </manifest>

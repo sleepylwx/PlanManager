@@ -31,7 +31,7 @@
                 android:title="给作者发邮件" />
 
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_share"
                 android:title="关于" />
 
