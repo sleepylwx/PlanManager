@@ -30,11 +30,10 @@
         android:text="空空如也~赶快去自习吧！( ^_^ )"
         android:visibility="gone"
         />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_self_learning_top"
+    <ListView
+        android:id="@+id/listview_study_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#ffff0000"
-        android:dividerHeight="10dp"
+        android:padding="5dp"
         android:layout_below="@id/appbar_self_learing_top"/>
 </RelativeLayout>

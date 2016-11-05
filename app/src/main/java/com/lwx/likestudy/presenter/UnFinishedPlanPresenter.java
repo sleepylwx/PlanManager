@@ -1,6 +1,6 @@
 package com.lwx.likestudy.presenter;
 
-import com.lwx.likestudy.contract.PlanContract;
+import com.lwx.likestudy.contract.UnFinishedPlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.data.source.DataRepository;
 
@@ -16,34 +16,34 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by 36249 on 2016/10/31.
  */
-public class MainPresenter implements PlanContract.Presenter{
+public class UnFinishedPlanPresenter implements UnFinishedPlanContract.Presenter{
 
 
-    private List<PlanContract.View> mViews;
+    private List<UnFinishedPlanContract.View> mViews;
     private DataRepository mRepository;
     private CompositeSubscription mSubscriptions;
-    private static MainPresenter sInstance;
+    private static UnFinishedPlanPresenter sInstance;
 
-    //public static List<RecentContract.View> mViews;
 
-    private MainPresenter(){
+
+    private UnFinishedPlanPresenter(){
 
         mViews = new ArrayList<>();
         mRepository = DataRepository.getsIntance();
         mSubscriptions = new CompositeSubscription();
-        //view.setPresenter(this);
+
     }
 
 
-    public static MainPresenter getInstance(){
+    public static UnFinishedPlanPresenter getInstance(){
 
         if(sInstance == null){
 
-            synchronized (MainPresenter.class){
+            synchronized (UnFinishedPlanPresenter.class){
 
                 if(sInstance == null){
 
-                    sInstance = new MainPresenter();
+                    sInstance = new UnFinishedPlanPresenter();
                 }
             }
         }
@@ -60,8 +60,7 @@ public class MainPresenter implements PlanContract.Presenter{
     @Override
     public void unSubscribe(){
 
-        mViews.clear();
-        mSubscriptions.clear();
+        ;
     }
 
     @Override
@@ -253,7 +252,7 @@ public class MainPresenter implements PlanContract.Presenter{
     }
 
     @Override
-    public void addView(PlanContract.View view){
+    public void addView(UnFinishedPlanContract.View view){
 
         mViews.add(view);
     }

@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,11 +16,11 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.adapter.RecyclerViewUnFinishedPlanAdapter;
 import com.lwx.likestudy.adapter.WayPlanAdapter;
-import com.lwx.likestudy.contract.PlanContract;
+import com.lwx.likestudy.contract.UnFinishedPlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
-import com.lwx.likestudy.presenter.MainPresenter;
+import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
+import com.lwx.likestudy.ui.activity.FinishPlanActivity;
 import com.lwx.likestudy.ui.activity.SetPlanActivity;
 import com.lwx.likestudy.utils.ClickRecord;
 
@@ -32,7 +29,7 @@ import java.util.List;
 /**
  * Created by 36249 on 2016/10/27.
  */
-public class WayFragment extends BaseFragment implements PlanContract.View{
+public class WayFragment extends BaseFragment implements UnFinishedPlanContract.View{
 
 
 
@@ -41,10 +38,11 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
 
     WayPlanAdapter madapter;
 
-    PlanContract.Presenter mPresenter;
+    UnFinishedPlanContract.Presenter mPresenter;
 
-    static final int UPDATE_DATA = 4;
-    static final int DELETE_DATA = 5;
+    static final int SELECTED_DATA = 6;
+    static final int UPDATE_DATA = 7;
+    static final int DELETE_DATA = 8;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -87,7 +85,7 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
 
 
 
-        PlanContract.Presenter presenter = MainPresenter.getInstance();
+        UnFinishedPlanContract.Presenter presenter = UnFinishedPlanPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
 
@@ -103,13 +101,13 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
 
 
     @Override
-    public void setPresenter(PlanContract.Presenter presenter){
+    public void setPresenter(UnFinishedPlanContract.Presenter presenter){
 
         mPresenter = presenter;
     }
 
     @Override
-    public PlanContract.Presenter getPresenter(){
+    public UnFinishedPlanContract.Presenter getPresenter(){
 
         return mPresenter;
     }
@@ -132,33 +130,27 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
     @Override
     public void onUnFinishedStudyPlansLoaded(List<UnFinishedStudyPlan> unFinishedStudyPlans){
 
-//        madapter.setDatas(unFinishedStudyPlans);
-//        Log.e("wayload",String.valueOf(madapter.getDatas().size()));
-//        madapter.notifyDataSetChanged();
+
         madapter.itemChanged();
     }
 
     @Override
     public void onUnFinishedStudyPlanCreated(UnFinishedStudyPlan unFinishedStudyPlan){
 
-//        madapter.addData(unFinishedStudyPlan);
-//        Log.e("waycreate",String.valueOf(madapter.getDatas().size()));
-//        madapter.notifyDataSetChanged();
+
         madapter.itemChanged();
     }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
 
-//        madapter.getDatas().set(mUpdateIndex,unFinishedStudyPlan);
-//        madapter.notifyItemChanged(mUpdateIndex);
+
         madapter.itemChanged();
     }
 
     @Override
     public void onUnFinishedStudyPlanDeleted(UnFinishedStudyPlan unFinishedStudyPlan){
 
-//        madapter.getDatas().remove(mDeleteIndex);
-//        madapter.notifyItemRemoved(mDeleteIndex);
+
         madapter.itemChanged();
     }
 
@@ -174,6 +166,7 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
         int type = ExpandableListView.getPackedPositionType(info.packedPosition);
         if(type == ExpandableListView.PACKED_POSITION_TYPE_CHILD){
 
+            menu.add(0,SELECTED_DATA,Menu.NONE,"选择计划");
             menu.add(0,UPDATE_DATA , Menu.NONE, "更新计划");
             menu.add(0,DELETE_DATA, Menu.NONE, "删除计划");
         }
@@ -186,7 +179,7 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
 
 
         int id = item.getItemId();
-        if(id > 5){
+        if(id > 8){
 
             return false;
         }
@@ -194,7 +187,15 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
                 (ExpandableListView.ExpandableListContextMenuInfo)item.getMenuInfo();
         int group = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         int child = ExpandableListView.getPackedPositionChild(info.packedPosition);
-        if(id == UPDATE_DATA){
+        if(id == SELECTED_DATA){
+
+
+            Intent intent = new Intent(getActivity(), FinishPlanActivity.class);
+            intent.putExtra("plan",madapter.getData(group,child));
+            startActivity(intent);
+
+        }
+        else if(id == UPDATE_DATA){
 
             UnFinishedStudyPlan unFinishedStudyPlan = madapter.getData(group,child);
             Intent intent = new Intent(getActivity(), SetPlanActivity.class);
@@ -212,7 +213,7 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
                 public void onClick(DialogInterface dialog, int which) {
 
 
-                    MainPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
+                    UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
 
                 }
             });

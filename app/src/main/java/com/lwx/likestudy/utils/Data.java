@@ -175,4 +175,82 @@ public class Data {
         Pair<UnFinishedStudyPlan> pair = new Pair<>(name,datas);
         return pair;
     }
+
+    public static List<UnFinishedStudyPlan> getDatasInOrderOfEndTimeWithNoIndex(){
+
+        List<UnFinishedStudyPlan> datas = getUnFinishedPlanDatas();
+
+        Collections.sort(datas, new Comparator<UnFinishedStudyPlan>() {
+            @Override
+            public int compare(UnFinishedStudyPlan unFinishedStudyPlan, UnFinishedStudyPlan t1) {
+
+                return unFinishedStudyPlan.getEndTime().compareTo(t1.getEndTime());
+            }
+        });
+
+        return datas;
+    }
+
+
+    public static List<StudyTime> getStudyTimeInOrderOfDurateTime(){
+
+        List<StudyTime> datas = getStudyTimeDatas();
+        Collections.sort(datas, new Comparator<StudyTime>() {
+            @Override
+            public int compare(StudyTime studyTime, StudyTime t1) {
+
+                return -studyTime.getDurateTime().compareTo(t1.getDurateTime());
+            }
+        });
+
+        for(int i = 0 ; i < datas.size(); ++i){
+
+            datas.get(i).setIndex(i+1);
+        }
+        return datas;
+    }
+
+    public static List<FinishedStudyPlan> getFinishedPlanInOrderOfFinshedTime(){
+
+
+        List<FinishedStudyPlan> datas = getFinishedPlanDatas();
+        Collections.sort(datas, new Comparator<FinishedStudyPlan>() {
+            @Override
+            public int compare(FinishedStudyPlan finishedStudyPlan, FinishedStudyPlan t1) {
+
+                return -finishedStudyPlan.getFinishedTime().compareTo(t1.getFinishedTime());
+            }
+        });
+
+        for(int i = 0; i < datas.size(); ++i){
+
+            datas.get(i).setIndex(i+1);
+        }
+
+        return datas;
+    }
+
+    public static long deleteFinishedPlan(FinishedStudyPlan finishedStudyPlan){
+
+        return LiteOrmHelper.getsInstance().delete(finishedStudyPlan);
+    }
+
+    public static long deleteStudyTime(StudyTime studyTime){
+
+        return LiteOrmHelper.getsInstance().delete(studyTime);
+    }
+
+    public static long deleteAllStudyTime(){
+
+        return LiteOrmHelper.getsInstance().delete(StudyTime.class);
+    }
+    public static long deleteAllFinishedPlan(){
+
+        return LiteOrmHelper.getsInstance().delete(FinishedStudyPlan.class);
+    }
+
+    public static long deleteAllUnFinishedPlan(){
+
+        return 0;
+    }
 }

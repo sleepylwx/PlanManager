@@ -1,7 +1,6 @@
 package com.lwx.likestudy.ui.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
-import com.lwx.likestudy.presenter.MainPresenter;
+import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.utils.Time;
 
 import java.util.List;
@@ -48,14 +47,27 @@ public class FinishPlanActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
+        Intent intent = getIntent();
+        unFinishedStudyPlan = ((UnFinishedStudyPlan)intent.getParcelableExtra("plan"));
+        if(unFinishedStudyPlan == null){
 
-        getPlan();
+            getPlan();
+        }
+        else{
+
+            textView.setText("\n\n"
+                    + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
+                    +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
+                    + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
+                    + "." + "\n" + "内容： " + unFinishedStudyPlan.getContent() +".");
+        }
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,8 +102,12 @@ public class FinishPlanActivity extends AppCompatActivity {
         }
         Random random = new Random();
         int randomNum;
-        while((randomNum = random.nextInt(datas.size())) == num){
 
+        while((randomNum = random.nextInt(datas.size())) == num){
+            if(datas.size() == 1){
+
+                break;
+            }
         }
         num = randomNum;
 
@@ -127,7 +143,7 @@ public class FinishPlanActivity extends AppCompatActivity {
                         }
                         if(res > 0){
 
-                            MainPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
+                            UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
                         }
                         finish();
                     }

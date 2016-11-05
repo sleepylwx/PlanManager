@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Created by 36249 on 2016/10/28.
  */
-public interface PlanContract {
+public interface UnFinishedPlanContract {
+
 
     interface View extends BaseView<Presenter> {
 
@@ -29,7 +30,7 @@ public interface PlanContract {
         void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan);
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<View> {
 
         void loadUnFinishedStudyPlans();
 

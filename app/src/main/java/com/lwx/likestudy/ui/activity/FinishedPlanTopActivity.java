@@ -4,29 +4,32 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.adapter.RecyclerViewFinishedPlanAdapter;
+import com.lwx.likestudy.adapter.FinishedPlanAdapter;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
-import com.lwx.likestudy.data.model.StudyTime;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
+import com.lwx.likestudy.utils.Data;
 
 /**
  * Created by 36249 on 2016/11/3.
  */
-public class FinishedPlanTopActivity extends AppCompatActivity {
+public class FinishedPlanTopActivity extends AppCompatActivity{
 
     Toolbar toolbar;
     TextView textView;
-    RecyclerView recyclerView;
-    RecyclerViewFinishedPlanAdapter adapter;
+    ListView listView;
+    FinishedPlanAdapter adapter;
+
+    private static final int DELETE_DATA = 9;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -35,7 +38,7 @@ public class FinishedPlanTopActivity extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar_finished_plan_top);
         textView = (TextView)findViewById(R.id.textview_finished_plan_top);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerview_finished_plan_top);
+        listView = (ListView)findViewById(R.id.listview_finished_plan);
         toolbar.setTitle("完成记录");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,17 +50,17 @@ public class FinishedPlanTopActivity extends AppCompatActivity {
                 finish();
             }
         });
-        adapter = new RecyclerViewFinishedPlanAdapter(this);
-        adapter.setDatas(LiteOrmHelper.getsInstance().query(FinishedStudyPlan.class));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        if(adapter.getItemCount() == 0){
+        adapter = new FinishedPlanAdapter(this);
+
+        listView.setAdapter(adapter);
+
+        if(adapter.getCount() == 0){
 
             textView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            listView.setVisibility(View.GONE);
         }
 
-
+        this.registerForContextMenu(listView);
     }
 
     @Override
@@ -83,13 +86,12 @@ public class FinishedPlanTopActivity extends AppCompatActivity {
             dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    LiteOrmHelper.getsInstance().delete(FinishedStudyPlan.class);
-                    adapter.clearDatas();
-                    adapter.notifyDataSetChanged();
 
+                    Data.deleteAllFinishedPlan();
+                    adapter.itemChanged();
 
-                        textView.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
 
                 }
             });
@@ -105,4 +107,62 @@ public class FinishedPlanTopActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo){
+
+        super.onCreateContextMenu(menu,v,menuInfo);
+
+        menu.add(0, DELETE_DATA, Menu.NONE, "删除计划");
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+
+        if(item.getItemId() != 9 ){
+            return false;
+        }
+
+
+        final AdapterView.AdapterContextMenuInfo  menuInfo =
+                (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
+        if(item.getItemId() == DELETE_DATA){
+
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("删除该项计划");
+            dialog.setMessage("确定要删除该项计划？");
+            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    Data.deleteFinishedPlan(adapter.getDatas().get(menuInfo.position));
+                    adapter.itemChanged();
+
+                }
+            });
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.show();
+        }
+
+
+        super.onContextItemSelected(item);
+
+        return true;
+    }
+
+
+
+
+
+
+
 }

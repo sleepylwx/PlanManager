@@ -2,20 +2,16 @@ package com.lwx.likestudy.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.contract.PlanContract;
+import com.lwx.likestudy.contract.UnFinishedPlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
-import com.lwx.likestudy.presenter.MainPresenter;
+import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.utils.Time;
 
 /**
@@ -33,7 +29,7 @@ public class SetPlanActivity extends AppCompatActivity {
 
     UnFinishedStudyPlan unFinishedStudyPlan;
     boolean state = false;
-    PlanContract.Presenter mPresenter;
+    UnFinishedPlanContract.Presenter mPresenter;
     @Override
     protected void onCreate(Bundle onSavedInstanceState){
 
@@ -50,7 +46,7 @@ public class SetPlanActivity extends AppCompatActivity {
             }
         });
 
-        mPresenter = MainPresenter.getInstance();
+        mPresenter = UnFinishedPlanPresenter.getInstance();
         subjectEditText = (EditText)findViewById(R.id.edittext_subject);
         wayEditText = (EditText)findViewById(R.id.edittext_way);
         endTimeEditText = (EditText)findViewById(R.id.edittext_endtime);

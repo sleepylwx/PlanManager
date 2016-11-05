@@ -4,9 +4,9 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/recyclerview_study_time_item_textview"
+        android:id="@+id/listview_finished_plan_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:textColor="#000000"
         android:text="helloworld"/>
 </LinearLayout>

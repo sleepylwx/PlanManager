@@ -1,14 +1,10 @@
 package com.lwx.likestudy.ui.fragment;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,11 +16,11 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.R;
-import com.lwx.likestudy.adapter.RecyclerViewUnFinishedPlanAdapter;
 import com.lwx.likestudy.adapter.SubjectPlanAdapter;
-import com.lwx.likestudy.contract.PlanContract;
+import com.lwx.likestudy.contract.UnFinishedPlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
-import com.lwx.likestudy.presenter.MainPresenter;
+import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
+import com.lwx.likestudy.ui.activity.FinishPlanActivity;
 import com.lwx.likestudy.ui.activity.SetPlanActivity;
 import com.lwx.likestudy.utils.ClickRecord;
 
@@ -33,7 +29,7 @@ import java.util.List;
 /**
  * Created by 36249 on 2016/10/27.
  */
-public class SubjectFragment extends BaseFragment implements PlanContract.View{
+public class SubjectFragment extends BaseFragment implements UnFinishedPlanContract.View{
 
 
 
@@ -42,10 +38,11 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
     SubjectPlanAdapter madapter;
 
-    PlanContract.Presenter mPresenter;
+    UnFinishedPlanContract.Presenter mPresenter;
 
-    private static final int UPDATE_DATA = 2;
-    private static final int DELETE_DATA = 3;
+    private static final int SELECTED_DATA = 3;
+    private static final int UPDATE_DATA = 4;
+    private static final int DELETE_DATA = 5;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -84,7 +81,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
         this.registerForContextMenu(expandableListView);
 
-        PlanContract.Presenter presenter = MainPresenter.getInstance();
+        UnFinishedPlanContract.Presenter presenter = UnFinishedPlanPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
     }
@@ -99,13 +96,13 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
 
     @Override
-    public void setPresenter(PlanContract.Presenter presenter){
+    public void setPresenter(UnFinishedPlanContract.Presenter presenter){
 
         mPresenter = presenter;
     }
 
     @Override
-    public PlanContract.Presenter getPresenter(){
+    public UnFinishedPlanContract.Presenter getPresenter(){
 
         return mPresenter;
     }
@@ -169,7 +166,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
         int type = ExpandableListView.getPackedPositionType(info.packedPosition);
         if(type == ExpandableListView.PACKED_POSITION_TYPE_CHILD){
-
+            menu.add(0,SELECTED_DATA,Menu.NONE,"选择计划");
             menu.add(0,UPDATE_DATA , Menu.NONE, "更新计划");
             menu.add(0,DELETE_DATA, Menu.NONE, "删除计划");
         }
@@ -182,7 +179,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
 
         int id = item.getItemId();
-        if(id < 2 || id > 3){
+        if(id < 3 || id > 5){
 
             return false;
         }
@@ -190,7 +187,15 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
                 (ExpandableListView.ExpandableListContextMenuInfo)item.getMenuInfo();
         int group = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         int child = ExpandableListView.getPackedPositionChild(info.packedPosition);
-        if(id == UPDATE_DATA){
+
+        if(id == SELECTED_DATA){
+
+            Intent intent = new Intent(getActivity(), FinishPlanActivity.class);
+            intent.putExtra("plan",madapter.getData(group,child));
+            startActivity(intent);
+
+        }
+        else if(id == UPDATE_DATA){
 
             UnFinishedStudyPlan unFinishedStudyPlan = madapter.getData(group,child);
             Intent intent = new Intent(getActivity(), SetPlanActivity.class);
@@ -208,7 +213,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
                 public void onClick(DialogInterface dialog, int which) {
 
 
-                    MainPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
+                    UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
 
                 }
             });

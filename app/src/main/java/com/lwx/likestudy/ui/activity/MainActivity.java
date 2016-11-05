@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
@@ -28,6 +30,7 @@ import com.lwx.likestudy.ui.fragment.RecentFragment;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lwx.likestudy.ui.fragment.SubjectFragment;
 import com.lwx.likestudy.ui.fragment.WayFragment;
+import com.lwx.likestudy.utils.StringResult;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     String[] titles;
     TextView frogView;
     boolean floatingButtonOpen = false;
+    private SpeechSynthesizer speechSynthesizer;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -126,6 +130,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        fabC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                setSpeaker();
+                String string =
+                        StringResult.getRecentPlanString();
+                speechSynthesizer.startSpeaking(string,null);
+            }
+        });
         frogView = (TextView)findViewById(R.id.frogview);
         frogView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,5 +305,15 @@ public class MainActivity extends AppCompatActivity
         fabMenu.collapse();
         frogView.setVisibility(View.GONE);
         floatingButtonOpen = false;
+    }
+
+    private void setSpeaker(){
+
+        speechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
+        speechSynthesizer.setParameter(SpeechConstant.VOICE_NAME,"yefang");
+        speechSynthesizer.setParameter(SpeechConstant.SPEED,"50");
+        speechSynthesizer.setParameter(SpeechConstant.VOLUME,"80");
+        speechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE,SpeechConstant.TYPE_CLOUD);
+
     }
 }
