@@ -71,6 +71,21 @@ public class Data {
         List<List<UnFinishedStudyPlan>> datas = new ArrayList<>();
         List<UnFinishedStudyPlan> child = new ArrayList<>();
         int num = 0;
+
+        if(temp.size() == 0){
+
+            return new Pair<UnFinishedStudyPlan>();
+        }
+        if(temp.size() == 1){
+
+            List<List<UnFinishedStudyPlan>> single = new ArrayList<>();
+            single.add(temp);
+            List<String> title = new ArrayList<>();
+            temp.get(0).setIndex(1);
+            title.add(temp.get(0).getSubject());
+            return new Pair<UnFinishedStudyPlan>(title,single);
+        }
+
         for(int i = 1; i < temp.size(); ++i){
 
             temp.get(i-1).setIndex(++num);
@@ -83,7 +98,7 @@ public class Data {
 
                 name.add(temp.get(i-1).getSubject());
                 datas.add(child);
-                Log.e("abc",child.size()+"");
+                Log.e("data",child.size()+"");
                 child = new ArrayList<>();
                 num = 0;
             }
@@ -94,8 +109,66 @@ public class Data {
                 child.add(temp.get(i));
                 name.add(temp.get(i).getSubject());
                 datas.add(child);
-                Log.e("qwe",child.size()+"");
+                Log.e("datainordsubject",child.size()+"");
 
+            }
+        }
+
+        Pair<UnFinishedStudyPlan> pair = new Pair<>(name,datas);
+        return pair;
+    }
+
+
+
+    public static Pair<UnFinishedStudyPlan> getDatasInOrderOfWay(){
+
+
+        List<UnFinishedStudyPlan> temp = getUnFinishedPlanDatas();
+        Collections.sort(temp, new Comparator<UnFinishedStudyPlan>() {
+            @Override
+            public int compare(UnFinishedStudyPlan o1, UnFinishedStudyPlan o2) {
+
+                return o1.getWay().compareTo(o2.getWay());
+            }
+        });
+
+        List<String> name = new ArrayList<>();
+        List<List<UnFinishedStudyPlan>> datas = new ArrayList<>();
+        List<UnFinishedStudyPlan> child = new ArrayList<>();
+        int num = 0;
+
+        if(temp.size() == 0){
+            return new Pair<UnFinishedStudyPlan>();
+        }
+        if(temp.size() == 1){
+
+            List<List<UnFinishedStudyPlan>> single = new ArrayList<>();
+            single.add(temp);
+            List<String> title = new ArrayList<>();
+            temp.get(0).setIndex(1);
+            title.add(temp.get(0).getWay());
+            return new Pair<UnFinishedStudyPlan>(title,single);
+        }
+        for(int i = 1; i < temp.size(); ++i){
+
+
+            temp.get(i-1).setIndex(++num);
+            child.add(temp.get(i-1));
+
+            if(!temp.get(i).getWay().equals(temp.get(i-1).getWay())){
+
+                name.add(temp.get(i-1).getWay());
+                datas.add(child);
+                child = new ArrayList<>();
+                num = 0;
+            }
+
+            if(i == temp.size() - 1){
+
+                temp.get(i).setIndex(++num);
+                child.add(temp.get(i));
+                name.add(temp.get(i).getWay());
+                datas.add(child);
             }
         }
 

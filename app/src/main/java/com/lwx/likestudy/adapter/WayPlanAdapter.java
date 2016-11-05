@@ -1,12 +1,10 @@
 package com.lwx.likestudy.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
 import com.lwx.likestudy.R;
@@ -15,67 +13,62 @@ import com.lwx.likestudy.utils.ClickRecord;
 import com.lwx.likestudy.utils.Data;
 import com.lwx.likestudy.utils.Pair;
 
+import org.w3c.dom.Text;
+
+import java.security.acl.Group;
 import java.util.List;
 
-import rx.Observable;
-
 /**
- * Created by 36249 on 2016/11/4.
+ * Created by 36249 on 2016/11/5.
  */
-public class SubjectPlanAdapter extends BaseExpandableListAdapter {
+public class WayPlanAdapter extends BaseExpandableListAdapter {
 
     Context context;
 
     List<String> groupName;
-    List<List<UnFinishedStudyPlan>> datasBySubject;
+    List<List<UnFinishedStudyPlan>> datasByWay;
 
-    public SubjectPlanAdapter(Context context){
+    public WayPlanAdapter(Context context){
 
         this.context = context;
-        Pair<UnFinishedStudyPlan> pair = Data.getDatasInOrderOfSubject();
+        Pair<UnFinishedStudyPlan> pair = Data.getDatasInOrderOfWay();
         groupName = pair.getGroupName();
-        datasBySubject = pair.getDatas();
-//        for(int i = 0; i < groupName.size() ;++i){
-//            Log.e("groupname",groupName.get(i));
-//        }
-//
-//        for(int i = 0; i < datasBySubject.size();++i){
-//            for(int j = 0;j < datasBySubject.get(i).size();++j){
-//
-//                Log.e(i+"",datasBySubject.get(i).get(j).getSubject());
-//            }
-//        }
+        datasByWay = pair.getDatas();
     }
 
     @Override
     public int getGroupCount(){
-        if(datasBySubject == null){
+
+        if(datasByWay == null){
+
             return 0;
         }
         else{
-            return datasBySubject.size();
+
+            return datasByWay.size();
         }
     }
 
     @Override
     public int getChildrenCount(int groupPosition){
 
-        if(datasBySubject == null){
+        if(datasByWay == null){
             return 0;
         }
-        return datasBySubject.get(groupPosition).size();
+
+        return datasByWay.get(groupPosition).size();
     }
 
     @Override
-    public Object getGroup(int groupPostion){
+    public Object getGroup(int groupPosition){
 
-        return datasBySubject.get(groupPostion);
+        return datasByWay.get(groupPosition);
     }
 
     @Override
-    public  Object getChild(int groupPosition,int childPosition){
+    public Object getChild(int groupPosition,int childPosition){
 
-        return datasBySubject.get(groupPosition).get(childPosition);
+        return datasByWay.get(groupPosition).get(childPosition);
     }
 
     @Override
@@ -92,6 +85,7 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean hasStableIds(){
+
         return true;
     }
 
@@ -102,17 +96,17 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
         GroupHolder groupHolder = null;
         if(convertView == null){
 
-            convertView = LayoutInflater.from(context).inflate(R.layout.expandable_subject_parent,null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.expandable_way_parent,null);
             groupHolder = new GroupHolder();
-            groupHolder.textView = (TextView)convertView.findViewById(R.id.textview_subject_parent);
+            groupHolder.textView = (TextView)convertView.findViewById(R.id.textview_way_parent);
             groupHolder.setGroupPosition(groupPosition);
             groupHolder.setChildPosition(-1);
             convertView.setTag(groupHolder);
-
         }
         else{
 
-            groupHolder = (GroupHolder)convertView.getTag();
+            groupHolder = (GroupHolder) convertView.getTag();
+
         }
 
         groupHolder.textView.setText(groupName.get(groupPosition));
@@ -120,17 +114,17 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition,int childPosition,
-                                boolean isLastChild,View convertView,ViewGroup parent){
+    public View getChildView(int groupPostion,int childPostion,
+                             boolean isLastChild,View convertView,ViewGroup parent){
 
         ChildHolder childHolder = null;
         if(convertView == null){
 
-            convertView = LayoutInflater.from(context).inflate(R.layout.expandable_subject_child,null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.expandable_way_child,null);
             childHolder = new ChildHolder();
-            childHolder.textView = (TextView)convertView.findViewById(R.id.textview_subject_child);
-            childHolder.setGroupPosition(groupPosition);
-            childHolder.setChildPosition(childPosition);
+            childHolder.textView = (TextView)convertView.findViewById(R.id.textview_way_child);
+            childHolder.setGroupPosition(groupPostion);
+            childHolder.setChildPosition(childPostion);
             convertView.setTag(childHolder);
         }
         else{
@@ -138,18 +132,14 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
             childHolder = (ChildHolder)convertView.getTag();
         }
 
-        UnFinishedStudyPlan unFinishedStudyPlan = datasBySubject
-                .get(groupPosition)
-                .get(childPosition);
+        UnFinishedStudyPlan unFinishedStudyPlan = datasByWay.get(groupPostion)
+                                                            .get(childPostion);
         childHolder.textView.setText(unFinishedStudyPlan.getIndex()+"\n"
                 + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
                 +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
                 + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                + ".+\n"+ "内容： " + unFinishedStudyPlan.getContent() + ".");
-
+                + ".\n" + "内容： " + unFinishedStudyPlan.getContent() + "." );
         return convertView;
-
-
     }
 
     @Override
@@ -157,7 +147,8 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
 
         return true;
     }
-    private class GroupHolder extends ClickRecord{
+
+    private class GroupHolder extends ClickRecord {
 
         TextView textView;
     }
@@ -167,17 +158,17 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
         TextView textView;
     }
 
-
     public void itemChanged(){
 
-        Pair<UnFinishedStudyPlan> pair = Data.getDatasInOrderOfSubject();
+        Pair<UnFinishedStudyPlan> pair = Data.getDatasInOrderOfWay();
         groupName = pair.getGroupName();
-        datasBySubject = pair.getDatas();
+        datasByWay = pair.getDatas();
         notifyDataSetChanged();
     }
 
     public UnFinishedStudyPlan getData(int group,int child){
 
-        return datasBySubject.get(group).get(child);
+        return datasByWay.get(group).get(child);
+
     }
 }

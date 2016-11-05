@@ -65,7 +65,7 @@ public class RecyclerViewFinishedPlanAdapter extends RecyclerView.Adapter<Recycl
     @Override
     public int getItemCount(){
 
-        Log.e("qwe",String.valueOf(datas == null));
+        Log.e("reFinishedPlanAdapter",String.valueOf(datas == null));
         if(datas == null)
             return 0;
         return datas.size();

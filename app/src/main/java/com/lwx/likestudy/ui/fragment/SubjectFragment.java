@@ -44,8 +44,8 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
     PlanContract.Presenter mPresenter;
 
-    private static final int UPDATE_DATE = 2;
-    private static final int DELETE_DATE = 3;
+    private static final int UPDATE_DATA = 2;
+    private static final int DELETE_DATA = 3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -170,8 +170,8 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
         int type = ExpandableListView.getPackedPositionType(info.packedPosition);
         if(type == ExpandableListView.PACKED_POSITION_TYPE_CHILD){
 
-            menu.add(0,UPDATE_DATE , Menu.NONE, "更新计划");
-            menu.add(0,DELETE_DATE, Menu.NONE, "删除计划");
+            menu.add(0,UPDATE_DATA , Menu.NONE, "更新计划");
+            menu.add(0,DELETE_DATA, Menu.NONE, "删除计划");
         }
 
 
@@ -190,14 +190,14 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
                 (ExpandableListView.ExpandableListContextMenuInfo)item.getMenuInfo();
         int group = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         int child = ExpandableListView.getPackedPositionChild(info.packedPosition);
-        if(id == UPDATE_DATE){
+        if(id == UPDATE_DATA){
 
             UnFinishedStudyPlan unFinishedStudyPlan = madapter.getData(group,child);
             Intent intent = new Intent(getActivity(), SetPlanActivity.class);
             intent.putExtra("source",unFinishedStudyPlan);
             startActivity(intent);
         }
-        else if(id == DELETE_DATE){
+        else if(id == DELETE_DATA){
 
             final UnFinishedStudyPlan unFinishedStudyPlan = madapter.getData(group,child);
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());

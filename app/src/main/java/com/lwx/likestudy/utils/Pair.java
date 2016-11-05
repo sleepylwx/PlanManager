@@ -12,6 +12,9 @@ public class Pair<T> {
     private List<String> groupName;
     private List<List<T>> datas;
 
+    public Pair(){
+
+    }
     public Pair(List<String> groupName, List<List<T>> datas) {
         this.groupName = groupName;
         this.datas = datas;
