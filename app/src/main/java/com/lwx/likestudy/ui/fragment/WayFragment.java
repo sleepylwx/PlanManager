@@ -145,15 +145,7 @@ public class WayFragment extends BaseFragment implements PlanContract.View{
     }
 
 
-    public void registeMenu(){
 
-        this.registerForContextMenu(recyclerView);
-    }
-
-    public void unRegisteMenu(){
-
-        this.unregisterForContextMenu(recyclerView);
-    }
 }
 
 

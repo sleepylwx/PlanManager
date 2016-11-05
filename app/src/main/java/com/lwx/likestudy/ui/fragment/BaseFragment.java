@@ -59,10 +59,6 @@ public abstract class BaseFragment extends Fragment {
         mSubscriptions.add(subscription);
     }
 
-    public abstract  void registeMenu();
 
-
-
-    public abstract void unRegisteMenu();
 
 }

@@ -80,12 +80,13 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
             }
         });
 
+        this.registerForContextMenu(listView);
 
         PlanContract.Presenter presenter = MainPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
         presenter.loadUnFinishedStudyPlans();
-        this.registerForContextMenu(listView);
+
     }
 
     @Override
@@ -175,6 +176,10 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
     @Override
     public boolean onContextItemSelected(MenuItem item){
 
+        if(item.getItemId() > 1){
+            return false;
+        }
+
         final AdapterView.AdapterContextMenuInfo  menuInfo =
                 (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
@@ -197,7 +202,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
 
                     MainPresenter.getInstance().deleteUnFinishedStudyPlan(
                             madapter.getDatas().get(menuInfo.position));
-                    madapter.itemChanged();
+
                 }
             });
             dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -215,17 +220,7 @@ public class RecentFragment extends BaseFragment implements PlanContract.View{
         return true;
     }
 
-    @Override
-    public void registeMenu(){
 
-        this.registerForContextMenu(listView);
-    }
-
-    @Override
-    public void unRegisteMenu(){
-
-        this.unregisterForContextMenu(listView);
-    }
 }
 
 

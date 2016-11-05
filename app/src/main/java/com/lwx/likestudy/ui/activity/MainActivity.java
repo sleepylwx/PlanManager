@@ -172,13 +172,10 @@ public class MainActivity extends AppCompatActivity
                     case 0:
                         toolbar.setTitle(titles[0]);
                         viewPager.setCurrentItem(position);
-
                         break;
                     case 1:
                         toolbar.setTitle(titles[1]);
                         viewPager.setCurrentItem(position);
-                        fragments[0].unRegisteMenu();
-                        fragments[position].registeMenu();
                         break;
                     case 2:
                         toolbar.setTitle(titles[2]);

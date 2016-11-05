@@ -1,5 +1,8 @@
 package com.lwx.likestudy.ui.fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,8 +44,8 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
 
     PlanContract.Presenter mPresenter;
 
-    private static final int UPDATE_DATE = 0;
-    private static final int DELETE_DATE = 1;
+    private static final int UPDATE_DATE = 2;
+    private static final int DELETE_DATE = 3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -79,7 +82,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
             }
         });
 
-
+        this.registerForContextMenu(expandableListView);
 
         PlanContract.Presenter presenter = MainPresenter.getInstance();
         setPresenter(presenter);
@@ -177,7 +180,12 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
     @Override
     public boolean onContextItemSelected(MenuItem item){
 
+
         int id = item.getItemId();
+        if(id < 2 || id > 3){
+
+            return false;
+        }
         final ExpandableListView.ExpandableListContextMenuInfo info =
                 (ExpandableListView.ExpandableListContextMenuInfo)item.getMenuInfo();
         int group = ExpandableListView.getPackedPositionGroup(info.packedPosition);
@@ -191,6 +199,27 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
         }
         else if(id == DELETE_DATE){
 
+            final UnFinishedStudyPlan unFinishedStudyPlan = madapter.getData(group,child);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("删除该项计划");
+            dialog.setMessage("确定要删除该项计划？");
+            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+
+                    MainPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
+
+                }
+            });
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.show();
+
 
         }
 
@@ -199,17 +228,7 @@ public class SubjectFragment extends BaseFragment implements PlanContract.View{
         return true;
     }
 
-    @Override
-    public void registeMenu(){
 
-        this.registerForContextMenu(expandableListView);
-    }
-
-    @Override
-    public void unRegisteMenu(){
-
-        this.unregisterForContextMenu(expandableListView);
-    }
 }
 
 
