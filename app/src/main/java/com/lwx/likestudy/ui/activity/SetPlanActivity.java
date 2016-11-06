@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.contract.UnFinishedPlanContract;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.utils.Time;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 /**
  * Created by 36249 on 2016/10/29.
@@ -103,5 +105,10 @@ public class SetPlanActivity extends AppCompatActivity {
             }
         });
 
+        if(LikeStudyApplication.isSpeakerOpen()){
+
+            VoiceHelper.inSetPlanActivity(this);
+        }
     }
+
 }

@@ -13,11 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.StudyTimeAdapter;
 import com.lwx.likestudy.data.model.StudyTime;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.utils.Data;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 /**
  * Created by 36249 on 2016/11/1.
@@ -60,6 +62,11 @@ public class SelfLearningTopActivity extends AppCompatActivity {
         }
 
         this.registerForContextMenu(listView);
+
+        if(LikeStudyApplication.isSpeakerOpen()){
+
+            VoiceHelper.inSelfLearningTopActivity(this);
+        }
     }
 
     @Override
@@ -98,6 +105,11 @@ public class SelfLearningTopActivity extends AppCompatActivity {
                 }
             });
             dialog.show();
+
+            if(LikeStudyApplication.isSpeakerOpen()){
+
+                VoiceHelper.selectDeleteStudyTime(SelfLearningTopActivity.this);
+            }
 
         }
 
@@ -147,6 +159,11 @@ public class SelfLearningTopActivity extends AppCompatActivity {
                 }
             });
             dialog.show();
+
+            if(LikeStudyApplication.isSpeakerOpen()){
+
+                VoiceHelper.selectDeleteRecord(SelfLearningTopActivity.this);
+            }
         }
 
 

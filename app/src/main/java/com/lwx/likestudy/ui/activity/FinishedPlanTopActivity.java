@@ -13,11 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.FinishedPlanAdapter;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.utils.Data;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 /**
  * Created by 36249 on 2016/11/3.
@@ -60,7 +62,13 @@ public class FinishedPlanTopActivity extends AppCompatActivity{
             listView.setVisibility(View.GONE);
         }
 
+
         this.registerForContextMenu(listView);
+
+        if(LikeStudyApplication.isSpeakerOpen()){
+
+            VoiceHelper.inFinishedPlanTopActivity(this);
+        }
     }
 
     @Override
@@ -87,6 +95,7 @@ public class FinishedPlanTopActivity extends AppCompatActivity{
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
+
                     Data.deleteAllFinishedPlan();
                     adapter.itemChanged();
 
@@ -102,7 +111,10 @@ public class FinishedPlanTopActivity extends AppCompatActivity{
                 }
             });
             dialog.show();
+            if(LikeStudyApplication.isSpeakerOpen()){
 
+                VoiceHelper.selectDeleteAllFinishedPlan(FinishedPlanTopActivity.this);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,10 +144,11 @@ public class FinishedPlanTopActivity extends AppCompatActivity{
         if(item.getItemId() == DELETE_DATA){
 
 
+
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle("删除该项计划");
             dialog.setMessage("确定要删除该项计划？");
-            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -151,6 +164,10 @@ public class FinishedPlanTopActivity extends AppCompatActivity{
                 }
             });
             dialog.show();
+            if(LikeStudyApplication.isSpeakerOpen()){
+
+                VoiceHelper.selectDeleteRecord(FinishedPlanTopActivity.this);
+            }
         }
 
 

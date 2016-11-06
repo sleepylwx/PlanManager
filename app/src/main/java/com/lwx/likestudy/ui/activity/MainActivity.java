@@ -21,6 +21,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
@@ -32,6 +33,7 @@ import com.lwx.likestudy.ui.fragment.SubjectFragment;
 import com.lwx.likestudy.ui.fragment.WayFragment;
 import com.lwx.likestudy.utils.Data;
 import com.lwx.likestudy.utils.StringResult;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     String[] titles;
     TextView frogView;
     boolean floatingButtonOpen = false;
-    private SpeechSynthesizer speechSynthesizer;
+
     private static final String TAG = "MainActivity";
 
     @Override
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle("最近添加的计划");
 
         setSupportActionBar(toolbar);
-
 
         titles = getResources().getStringArray(R.array.titles);
         final BaseFragment[] fragments = new BaseFragment[titles.length];
@@ -95,8 +96,14 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
 
+
+
                 if(floatingButtonOpen == false){
 
+                    if(LikeStudyApplication.isSpeakerOpen()){
+
+                        VoiceHelper.selectFloatingButton(MainActivity.this);
+                    }
                     openFloatingMenu();
                 }
                 else{
@@ -135,10 +142,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                setSpeaker();
+                //setSpeaker();
                 String string =
                         StringResult.getRecentPlanString();
-                speechSynthesizer.startSpeaking(string,null);
+               // speechSynthesizer.startSpeaking(string,null);
             }
         });
         frogView = (TextView)findViewById(R.id.frogview);
@@ -187,14 +194,28 @@ public class MainActivity extends AppCompatActivity
                     case 0:
                         toolbar.setTitle(titles[0]);
                         viewPager.setCurrentItem(position);
+                        if(LikeStudyApplication.isSpeakerOpen()){
+
+                            VoiceHelper.selectRecent(MainActivity.this);
+                        }
+
                         break;
                     case 1:
                         toolbar.setTitle(titles[1]);
                         viewPager.setCurrentItem(position);
+                        if(LikeStudyApplication.isSpeakerOpen()){
+
+                            VoiceHelper.selectSubject(MainActivity.this);
+                        }
                         break;
                     case 2:
                         toolbar.setTitle(titles[2]);
                         viewPager.setCurrentItem(position);
+                        if(LikeStudyApplication.isSpeakerOpen()){
+
+                            VoiceHelper.selectWay(MainActivity.this);
+                        }
+
                         break;
                 }
 
@@ -214,7 +235,10 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationBar.selectTab(0);
 
 
+        if(LikeStudyApplication.isSpeakerOpen()){
 
+            VoiceHelper.selectRecent(MainActivity.this);
+        }
     }
 
 
@@ -254,6 +278,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.mode_self_learning) {
+
+
 
             Intent intent = new Intent(MainActivity.this,SelfLearingActivity.class);
             startActivity(intent);
@@ -311,13 +337,5 @@ public class MainActivity extends AppCompatActivity
         floatingButtonOpen = false;
     }
 
-    private void setSpeaker(){
 
-        speechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
-        speechSynthesizer.setParameter(SpeechConstant.VOICE_NAME,"yefang");
-        speechSynthesizer.setParameter(SpeechConstant.SPEED,"50");
-        speechSynthesizer.setParameter(SpeechConstant.VOLUME,"80");
-        speechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE,SpeechConstant.TYPE_CLOUD);
-
-    }
 }

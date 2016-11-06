@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.utils.Time;
 import com.lwx.likestudy.utils.TimeTickerThread;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 /**
  * Created by 36249 on 2016/10/27.
@@ -29,8 +31,10 @@ public class SelfLearingActivity extends AppCompatActivity {
     int second = 0;
     TimeTickerThread thread;
     String sumTime;
+
     private static  boolean IS_GO_ON = false;
     int num;
+    int startTimes = 0;
     Handler handler = new Handler(){
 
         @Override
@@ -68,7 +72,14 @@ public class SelfLearingActivity extends AppCompatActivity {
                     thread = new TimeTickerThread(handler);
                     new Thread(thread).start();
                     button.setText("暂停");
+                    if(startTimes == 0){
 
+                        if(LikeStudyApplication.isSpeakerOpen()){
+
+                            VoiceHelper.selectStudyStart(SelfLearingActivity.this);
+                        }
+                        ++startTimes;
+                    }
                 }
                 else{
 
@@ -80,7 +91,10 @@ public class SelfLearingActivity extends AppCompatActivity {
                 }
             }
         });
+        if(LikeStudyApplication.isSpeakerOpen()){
 
+            VoiceHelper.selectStudy(this);
+        }
     }
 
     @Override

@@ -12,6 +12,7 @@ public class LikeStudyApplication extends Application {
 
     private static LikeStudyApplication sInstance;
 
+    private static boolean speakerOpen = false;
     @Override
     public void onCreate(){
         super.onCreate();
@@ -23,5 +24,13 @@ public class LikeStudyApplication extends Application {
     public static LikeStudyApplication getInstance(){
 
         return sInstance;
+    }
+
+    public static boolean isSpeakerOpen() {
+        return speakerOpen;
+    }
+
+    public static void setSpeakerOpen(boolean speakerOpen) {
+        LikeStudyApplication.speakerOpen = speakerOpen;
     }
 }

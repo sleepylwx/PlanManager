@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.StudyTime;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.utils.Time;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 /**
  * Created by 36249 on 2016/11/1.
@@ -65,5 +67,10 @@ public class StoreStudyTimeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        if(LikeStudyApplication.isSpeakerOpen()){
+
+            VoiceHelper.inStoreStudyTimeActivity(this);
+        }
     }
 }

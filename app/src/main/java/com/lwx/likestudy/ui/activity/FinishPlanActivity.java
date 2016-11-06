@@ -18,6 +18,7 @@ import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.utils.Time;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,7 @@ public class FinishPlanActivity extends AppCompatActivity {
     Button nextIndexButton;
     UnFinishedStudyPlan unFinishedStudyPlan;
     int num = -1;
-
+    boolean speak = true;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -86,6 +87,11 @@ public class FinishPlanActivity extends AppCompatActivity {
                 getPlan();
             }
         });
+
+        if(LikeStudyApplication.isSpeakerOpen() && speak == true){
+
+            VoiceHelper.inFinishPlanAcitivity(this);
+        }
     }
 
     public void getPlan(){
@@ -94,7 +100,7 @@ public class FinishPlanActivity extends AppCompatActivity {
                 LiteOrmHelper.getsInstance().query(UnFinishedStudyPlan.class);
         if(datas.size() == 0){
 
-
+            speak = false;
             Toast.makeText(LikeStudyApplication.getInstance(),"没有未完成的记录",Toast.LENGTH_SHORT).show();
 
             finish();
