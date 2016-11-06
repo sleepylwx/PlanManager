@@ -34,6 +34,7 @@ import com.lwx.likestudy.ui.fragment.WayFragment;
 import com.lwx.likestudy.utils.Data;
 import com.lwx.likestudy.utils.StringResult;
 import com.lwx.likestudy.utils.VoiceHelper;
+import com.lwx.likestudy.utils.VoiceRecognizer;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -142,10 +143,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                //setSpeaker();
-                String string =
-                        StringResult.getRecentPlanString();
-               // speechSynthesizer.startSpeaking(string,null);
+                VoiceRecognizer.getVoice(MainActivity.this);
             }
         });
         frogView = (TextView)findViewById(R.id.frogview);

@@ -12,13 +12,14 @@ public class LikeStudyApplication extends Application {
 
     private static LikeStudyApplication sInstance;
 
-    private static boolean speakerOpen = false;
+    private static boolean speakerOpen = true;
     @Override
     public void onCreate(){
         super.onCreate();
         sInstance = this;
 
-        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=5806f8be");
+        SpeechUtility.createUtility(this, "appid" +"=581ed01c");
+        
     }
 
     public static LikeStudyApplication getInstance(){

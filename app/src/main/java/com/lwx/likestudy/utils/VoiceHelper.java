@@ -160,4 +160,8 @@ public class VoiceHelper {
         speechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE,SpeechConstant.TYPE_CLOUD);
 
     }
+
+
+
+
 }
