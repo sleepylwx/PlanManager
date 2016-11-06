@@ -28,6 +28,8 @@ public interface UnFinishedPlanContract {
         void onUnFinishedStudyPlanDeleted(UnFinishedStudyPlan unFinishedStudyPlan);
 
         void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan);
+
+        void onUnFinishedStudyPlanAllDeleted();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -39,6 +41,8 @@ public interface UnFinishedPlanContract {
         void deleteUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan);
 
         void updateUnFinishedStudyPlan(UnFinishedStudyPlan unFinishedStudyPlan);
+
+        void deleteAllUnFinishedPlan();
 
     }
 }

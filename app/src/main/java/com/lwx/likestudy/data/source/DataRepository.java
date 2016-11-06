@@ -102,4 +102,10 @@ public class DataRepository implements DataBaseContract {
 
         return mLocalDataSouce.delete(studyTime);
     }
+
+    @Override
+    public Observable<List<UnFinishedStudyPlan>> deleteAll(){
+
+        return mLocalDataSouce.deleteAll();
+    }
 }

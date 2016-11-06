@@ -256,4 +256,51 @@ public class UnFinishedPlanPresenter implements UnFinishedPlanContract.Presenter
 
         mViews.add(view);
     }
+
+    @Override
+    public void deleteAllUnFinishedPlan(){
+
+        Subscription subscription = mRepository.deleteAll()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Subscriber<List<UnFinishedStudyPlan>>() {
+
+                                        @Override
+                                        public void onStart(){
+
+                                            for(int i = 0; i < mViews.size(); ++i){
+
+                                                mViews.get(i).showLoading();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCompleted() {
+
+                                            for(int i = 0; i < mViews.size(); ++i){
+
+                                                mViews.get(i).hideLoading();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                            for(int i = 0; i < mViews.size(); ++i){
+
+                                                mViews.get(i).hideLoading();
+                                               // mViews.get(i).handleError(e);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onNext(List<UnFinishedStudyPlan> unFinishedStudyPlen) {
+
+                                            for(int i = 0; i < mViews.size(); ++i){
+
+                                                mViews.get(i).onUnFinishedStudyPlanAllDeleted();
+                                            }
+                                        }
+                                    });
+    }
 }

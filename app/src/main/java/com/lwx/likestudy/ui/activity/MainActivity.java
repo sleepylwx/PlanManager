@@ -30,6 +30,7 @@ import com.lwx.likestudy.ui.fragment.RecentFragment;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.lwx.likestudy.ui.fragment.SubjectFragment;
 import com.lwx.likestudy.ui.fragment.WayFragment;
+import com.lwx.likestudy.utils.Data;
 import com.lwx.likestudy.utils.StringResult;
 
 public class MainActivity extends AppCompatActivity
@@ -281,6 +282,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_send) {
+
+
+            //Data.deleteAllData();
 
         } else if (id == R.id.nav_about) {
 

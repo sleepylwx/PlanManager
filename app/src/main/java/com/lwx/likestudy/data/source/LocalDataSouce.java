@@ -222,4 +222,28 @@ class LocalDataSouce implements DataBaseContract {
         });
     }
 
+
+    @Override
+    public Observable<List<UnFinishedStudyPlan>> deleteAll(){
+
+        return Observable.create(new Observable.OnSubscribe<List<UnFinishedStudyPlan>>() {
+            @Override
+            public void call(Subscriber<? super List<UnFinishedStudyPlan>> subscriber) {
+
+                long result = mLiteOrm.deleteAll(UnFinishedStudyPlan.class);
+
+                if(result > 0){
+
+                    subscriber.onNext(null);
+                }
+                else{
+
+                    subscriber.onError(new Exception("删除失败"));
+                }
+            }
+        });
+
+
+    }
+
 }

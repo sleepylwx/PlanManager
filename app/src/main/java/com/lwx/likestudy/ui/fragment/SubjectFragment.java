@@ -156,6 +156,11 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
     }
 
     @Override
+    public void onUnFinishedStudyPlanAllDeleted(){
+
+        madapter.itemChanged();
+    }
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo){
 

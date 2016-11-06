@@ -22,6 +22,7 @@ public interface DataBaseContract {
 
     Observable<UnFinishedStudyPlan> update(UnFinishedStudyPlan unFinishedStudyPlan);
 
+    Observable<List<UnFinishedStudyPlan>> deleteAll();
 
     //
     Observable<List<FinishedStudyPlan>> getFinishedStudyPlans();

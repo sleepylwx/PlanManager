@@ -6,6 +6,7 @@ import com.lwx.likestudy.data.model.FinishedStudyPlan;
 import com.lwx.likestudy.data.model.StudyTime;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.data.source.db.LiteOrmHelper;
+import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -240,17 +241,27 @@ public class Data {
         return LiteOrmHelper.getsInstance().delete(studyTime);
     }
 
-    public static long deleteAllStudyTime(){
+    public static void deleteAllStudyTime(){
 
-        return LiteOrmHelper.getsInstance().delete(StudyTime.class);
+        LiteOrmHelper.getsInstance().delete(StudyTime.class);
+        return;
     }
-    public static long deleteAllFinishedPlan(){
+    public static void deleteAllFinishedPlan(){
 
-        return LiteOrmHelper.getsInstance().delete(FinishedStudyPlan.class);
+        LiteOrmHelper.getsInstance().delete(FinishedStudyPlan.class);
+        return;
     }
 
-    public static long deleteAllUnFinishedPlan(){
+    public static void deleteAllUnFinishedPlan(){
 
-        return 0;
+        UnFinishedPlanPresenter.getInstance().deleteAllUnFinishedPlan();
+        return;
+    }
+
+    public static void deleteAllData(){
+
+        deleteAllStudyTime();
+        deleteAllUnFinishedPlan();
+        deleteAllFinishedPlan();
     }
 }

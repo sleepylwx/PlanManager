@@ -155,6 +155,11 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
     }
 
     @Override
+    public void onUnFinishedStudyPlanAllDeleted(){
+
+        madapter.itemChanged();
+    }
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo){
 
