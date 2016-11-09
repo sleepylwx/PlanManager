@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.LikeStudyApplication;
@@ -39,9 +40,9 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
 
 
     ListView listView;
-
+    TextView textView;
     RecentPlanAdapter madapter;
-
+    boolean isEmpty = false;
     UnFinishedPlanContract.Presenter mPresenter;
 
 
@@ -63,7 +64,7 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
 
 
         listView = (ListView) getActivity().findViewById(R.id.listview_recent);
-
+        textView = (TextView)getActivity().findViewById(R.id.textview_fragment_recent);
         madapter = new RecentPlanAdapter(getActivity());
 
 
@@ -84,6 +85,12 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
         setPresenter(presenter);
         presenter.addView(this);
         //presenter.loadUnFinishedStudyPlans();
+        if(madapter.getCount() == 0){
+
+            listView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
 
     }
 
@@ -135,12 +142,19 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
 
 
         madapter.itemChanged();
+        if(isEmpty){
+
+            listView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            isEmpty = false;
+        }
     }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
 
 
         madapter.itemChanged();
+
     }
 
     @Override
@@ -148,6 +162,12 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
 
 
         madapter.itemChanged();
+        if(madapter.getCount() == 0){
+
+            listView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
     }
 
     @Override
@@ -202,6 +222,8 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
 
                     UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(
                             madapter.getDatas().get(menuInfo.position));
+
+
 
                 }
             });

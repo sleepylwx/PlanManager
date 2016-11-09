@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.LikeStudyApplication;
@@ -37,9 +38,9 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
 
 
     ExpandableListView expandableListView;
-
+    TextView textView;
     SubjectPlanAdapter madapter;
-
+    boolean isEmpty = false;
     UnFinishedPlanContract.Presenter mPresenter;
 
     private static final int SELECTED_DATA = 3;
@@ -58,7 +59,7 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
 
         super.onViewCreated(view,savedInstanceState);
         expandableListView = (ExpandableListView) getActivity().findViewById(R.id.expandablelistview_subject);
-
+        textView = (TextView)getActivity().findViewById(R.id.textview_fragment_subject);
         madapter = new SubjectPlanAdapter(getActivity());
         expandableListView.setAdapter(madapter);
         //
@@ -86,6 +87,13 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
         UnFinishedPlanContract.Presenter presenter = UnFinishedPlanPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
+
+        if(madapter.getGroupCount() == 0){
+
+            expandableListView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
     }
 
     @Override
@@ -137,6 +145,13 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
     public void onUnFinishedStudyPlanCreated(UnFinishedStudyPlan unFinishedStudyPlan){
 
         madapter.itemChanged();
+
+        if(isEmpty){
+
+            expandableListView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            isEmpty = false;
+        }
 //        madapter.addData(unFinishedStudyPlan);
 //        Log.e("subjectcreate",String.valueOf(madapter.getDatas().size()));
 //        madapter.notifyDataSetChanged();
@@ -153,6 +168,12 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
     public void onUnFinishedStudyPlanDeleted(UnFinishedStudyPlan unFinishedStudyPlan){
 
         madapter.itemChanged();
+        if(madapter.getGroupCount() == 0){
+
+            expandableListView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
 //        madapter.getDatas().remove(mDeleteIndex);
 //        madapter.notifyItemRemoved(mDeleteIndex);
     }

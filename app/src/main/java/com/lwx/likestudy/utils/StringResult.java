@@ -11,8 +11,7 @@ public class StringResult {
 
 
     private static String[] greetStrings = {"好久不见，你还好吗？",
-                                            "我们又见面啦",
-                                            "嘻嘻"};
+                                            "我们又见面啦"};
     public static String getRecentPlanString(){
 
         List<UnFinishedStudyPlan> datas =  Data.getDatasInOrderOfEndTimeWithNoIndex();

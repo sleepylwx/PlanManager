@@ -264,4 +264,41 @@ public class Data {
         deleteAllUnFinishedPlan();
         deleteAllFinishedPlan();
     }
+
+    public static List<UnFinishedStudyPlan> getDatasInOrderOfEndTime(){
+
+        List<UnFinishedStudyPlan>list = getDatasInOrderOfEndTimeWithNoIndex();
+
+        for(int i = 0 ; i < list.size() ; ++i){
+
+            list.get(i).setIndex(i+1);
+        }
+
+        return list;
+    }
+
+    public static List<UnFinishedStudyPlan>getRecentNeededPlan(){
+
+        List<UnFinishedStudyPlan>list = getDatasInOrderOfEndTime();
+
+        int num = list.size() == 0 ? 0 : 1;
+        for(int i = 0; i < list.size() - 1;++i){
+
+            if(list.get(i).getEndTime().equals(list.get(i+1).getEndTime())){
+
+                ++num;
+                continue;
+            }
+            break;
+        }
+
+        List<UnFinishedStudyPlan>temp = new ArrayList<>();
+
+        for(int i = 0; i < num ; ++i){
+
+            temp.add(list.get(i));
+        }
+
+        return temp;
+    }
 }

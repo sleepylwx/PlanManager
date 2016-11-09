@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lwx.likestudy.LikeStudyApplication;
@@ -37,9 +38,9 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
 
 
     ExpandableListView expandableListView;
-
+    TextView textView;
     WayPlanAdapter madapter;
-
+    boolean isEmpty = false;
     UnFinishedPlanContract.Presenter mPresenter;
 
     static final int SELECTED_DATA = 6;
@@ -58,7 +59,7 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
 
         super.onViewCreated(view,savedInstanceState);
         expandableListView = (ExpandableListView) getActivity().findViewById(R.id.expandablelistview_way);
-
+        textView = (TextView)getActivity().findViewById(R.id.textview_fragment_way);
         madapter = new WayPlanAdapter(getActivity());
 
         expandableListView.setAdapter(madapter);
@@ -90,6 +91,13 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
         UnFinishedPlanContract.Presenter presenter = UnFinishedPlanPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
+
+        if(madapter.getGroupCount() == 0){
+
+            expandableListView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
 
     }
 
@@ -141,6 +149,12 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
 
 
         madapter.itemChanged();
+        if(isEmpty){
+
+            expandableListView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            isEmpty = false;
+        }
     }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
@@ -154,6 +168,13 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
 
 
         madapter.itemChanged();
+
+        if(madapter.getGroupCount() == 0){
+
+            expandableListView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
     }
 
     @Override
