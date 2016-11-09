@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.RecentPlanAdapter;
 import com.lwx.likestudy.contract.UnFinishedPlanContract;
@@ -24,6 +25,7 @@ import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.ui.activity.FinishPlanActivity;
 import com.lwx.likestudy.ui.activity.SetPlanActivity;
+import com.lwx.likestudy.utils.VoiceHelper;
 
 
 import java.util.List;
@@ -194,7 +196,7 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
             dialog.setTitle("删除该项计划");
             dialog.setMessage("确定要删除该项计划？");
-            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -210,6 +212,11 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
                 }
             });
             dialog.show();
+
+            if(LikeStudyApplication.isSpeakerOpen()){
+
+                VoiceHelper.selectDeleteUnFinishedPlan(getActivity());
+            }
         }
 
 

@@ -37,4 +37,6 @@
         android:text="开始"
         android:layout_alignParentBottom="true"
         />
+
+
 </RelativeLayout>

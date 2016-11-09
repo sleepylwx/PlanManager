@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listviewshape"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/listview_study_time_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="helloworld"/>
+
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/simple_ratingbar_study_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srb_starSize="20dp"
+        app:srb_numberOfStars="5"
+        app:srb_rating="3"
+        app:srb_stepSize="1"
+        app:srb_borderColor="#000000"
+        app:srb_fillColor="#4682B4"
+
+        app:srb_isIndicator="true"
+        />
+
+    <TextView
+        android:id="@+id/listview_study_time_textview_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
         android:textColor="#000000"
         android:text="helloworld"/>
+
+    <TextView
+        android:id="@+id/listview_study_time_textview_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="hello"/>
+
 </LinearLayout>

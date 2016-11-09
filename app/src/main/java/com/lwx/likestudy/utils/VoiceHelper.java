@@ -16,25 +16,25 @@ public class VoiceHelper {
 
 
 
-    private static String SELECTRECENT = "在最近计划列表中，您将看到按创建时间降序创建的计划，"
+    private static String SELECTRECENT = "在最近计划列表中，您将看到按创建时间降序创建的计划卡片，"
             +"长按可以选择、更改或者删除该计划";
 
     private static String LONGSELECTPLAN = "这里有三个菜单项，其中更新计划，会在更新页面中"
             +"重新填好旧的计划，不用担心重填," + "若选择计划将会进入进行计划界面";
 
-    private static String SELECTEDELETEDUNFINISHEDPLAN = "若选择确定，将永久删除这个计划，请慎重";
-    private static String SELECTEDELETEDRECORD = "若选择确定，将永久删除这个记录";
-    private static String SELECTEDELETEALLFINISHEDRECORD = "若选择确定，将永久删除所有已完成的记录";
-    private static String SELECTEDELETEALLSTUDYTIME = "若选择确定，将永久删除所有自习记录";
+    private static String SELECTEDELETEDUNFINISHEDPLAN = "若选择确定，将永久删除这个计划卡片";
+    private static String SELECTEDELETEDRECORD = "若选择确定，将永久删除这个记录卡片";
+    private static String SELECTEDELETEALLFINISHEDRECORD = "若选择确定，将永久删除所有已完成的记录卡片";
+    private static String SELECTEDELETEALLSTUDYTIME = "若选择确定，将永久删除所有自习记录卡片";
     private static String SELECTEDELETEALLDATA = "若选择确定，将永久删除所有数据";
     private static String INFINISHEDPLANTOPACTIVITY = "在这个页面，您将看到所有按完成时间降序排列的"
-            +"已完成的计划,长按可以删除该记录，也可以点击右上角清空所有完成的记录";
-    private static String INSELFLEARNITOPACTIVITY = "在这个页面，您将看到所有按自习时间长短降序排序的自习记录"
-            +"长按可删除该记录，也可以点击右上角清空所有自习记录";
-    private static String SELECTESUBJECT = "在这个页面，您将看到按科目分类的计划，点击相应科目名称可以"
-            +"看到所有该科目下的计划，长按计划，可以弹出菜单";
-    private static String SELECTEWAY = "在这个页面，您将看到按计划方式分类的计划，点击相应方式名称可以"
-            +"看到所有该方式下的计划，长按计划，可以弹出菜单";
+            +"已完成的计划卡片,长按可以删除该记录卡片，也可以点击右上角清空所有完成的记录卡片";
+    private static String INSELFLEARNITOPACTIVITY = "在这个页面，您将看到所有按自习时间长短降序排序的自习记录卡片"
+            +"长按可删除该记录卡片，也可以点击右上角清空所有自习记录卡片";
+    private static String SELECTESUBJECT = "在这个页面，您将看到按科目分类的计划抽屉，点击相应科目名称可以"
+            +"看到所有该科目抽屉下的计划卡片，长按计划卡片，可以弹出菜单";
+    private static String SELECTEWAY = "在这个页面，您将看到按计划方式分类的计划抽屉，点击相应方式名称可以"
+            +"看到所有该方式下的计划卡片，长按计划卡片，可以弹出菜单";
     private static String SELECTESTUDY = "在自习模式下，您可以点击下方按钮开始自习，应用会为您统计自习时间,"
             +"完成后还可以评价自习效果";
 
@@ -43,10 +43,10 @@ public class VoiceHelper {
     private static String SELECTEFLOATINGBUTTON = "这是悬浮按钮，点击第三个按钮，并说出相应关键词，可以语音"
             +"打开相应页面";
 
-    private static String INFINISHPLANACTIVITY = "在进行计划页面，您选择了一个计划，并将完成它"
-            +"点击下方按钮，进入计时，开始进行该计划";
+    private static String INFINISHPLANACTIVITY = "在进行计划页面，您选择了一个计划卡片，并将完成它"
+            +"长按计划卡片可以选择完成或者重新选择";
 
-    private static String INSETPLANACTIVITY = "在这一页面，您可以填写相关信息，并保存为未完成的计划";
+    private static String INSETPLANACTIVITY = "在这一页面，您可以填写相关信息，并保存为未完成的计划卡片";
 
     private static String INSTORESTUDYTIMEACTIVITY = "您可以填写完成的满意情况并点击确定保存";
 

@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_fragment_recent">
+    android:background="@color/color_set_plan_background">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_set_plan"
@@ -29,34 +29,41 @@
         android:layout_height="wrap_content"
         android:text="科目:"
         android:textSize="10sp"
-        android:textColor="#000000"
-        android:padding="4dp"
+
+        android:paddingTop="13dp"
+        android:paddingLeft="4dp"
+
         android:layout_below="@id/appbar_set_plan"
         />
     <EditText
         android:id="@+id/edittext_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:text=""
-        android:layout_below="@id/textview_subject"
-        />
+        android:backgroundTint="#00000000"
+        android:layout_below="@id/appbar_set_plan"
+        android:layout_toRightOf="@id/textview_subject"
+         />
     <TextView
         android:id="@+id/textview_way"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="方式:"
         android:textSize="10sp"
-        android:textColor="#000000"
-        android:padding="4dp"
+
+        android:paddingTop="13dp"
+        android:paddingLeft="4dp"
         android:layout_below="@id/edittext_subject"/>
     <EditText
         android:id="@+id/edittext_way"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:text=""
-        android:layout_below="@id/textview_way"/>
+        android:backgroundTint="#00000000"
+        android:layout_below="@id/edittext_subject"
+        android:layout_toRightOf="@id/textview_way"/>
 
     <TextView
         android:id="@+id/textview_endtime"
@@ -64,17 +71,21 @@
         android:layout_height="wrap_content"
         android:text="截止日期："
         android:textSize="10sp"
-        android:textColor="#000000"
-        android:padding="4dp"
+        android:paddingTop="3dp"
+        android:paddingLeft="4dp"
         android:layout_below="@id/edittext_way"
         />
 
-    <EditText
-        android:id="@+id/edittext_endtime"
+
+    <TextView
+        android:id="@+id/textview_endtimeshow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_below="@id/textview_endtime"/>
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:layout_below="@id/edittext_way"
+        android:layout_toRightOf="@id/textview_endtime"
+        />
 
     <TextView
         android:id="@+id/textview_importance"
@@ -82,41 +93,44 @@
         android:layout_height="wrap_content"
         android:text="重要程度："
         android:textSize="10sp"
-        android:textColor="#000000"
-        android:padding="4dp"
-        android:layout_below="@id/edittext_endtime"/>
+        android:paddingTop="15dp"
+        android:paddingLeft="4dp"
+        android:layout_below="@id/textview_endtime"/>
 
-    <EditText
-        android:id="@+id/edittext_importance"
-        android:layout_width="match_parent"
+
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/simple_ratingbar_importance"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        app:srb_starSize="40dp"
+        app:srb_numberOfStars="5"
+        app:srb_rating="3"
+        app:srb_stepSize="1"
+        app:srb_borderColor="#000000"
+        app:srb_fillColor="#ff0000"
+
+        app:srb_isIndicator="false"
         android:layout_below="@id/textview_importance"
         />
+
     <TextView
         android:id="@+id/textview_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="内容："
         android:textSize="10sp"
-        android:textColor="#000000"
-        android:padding="4dp"
-        android:layout_below="@id/edittext_importance"/>
+        android:paddingTop="4dp"
+        android:paddingLeft="4dp"
+        android:layout_below="@id/simple_ratingbar_importance"/>
 
     <EditText
         android:id="@+id/edittext_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="8"
-        android:textSize="20sp"
+        android:textSize="15sp"
+        android:backgroundTint="#00000000"
         android:layout_below="@id/textview_content"
          />
-    <Button
-        android:id="@+id/button_add_plan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="添加"
 
-        android:textSize="30sp"
-        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

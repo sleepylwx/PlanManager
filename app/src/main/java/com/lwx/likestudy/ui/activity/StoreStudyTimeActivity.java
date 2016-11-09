@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.StudyTime;
@@ -22,6 +23,7 @@ import com.lwx.likestudy.utils.VoiceHelper;
 public class StoreStudyTimeActivity extends AppCompatActivity {
 
     EditText editText;
+    SimpleRatingBar simpleRatingBar;
     Button addButton;
     Button cancelButton;
     @Override
@@ -31,6 +33,7 @@ public class StoreStudyTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dialog_store_study_time);
 
         editText = (EditText)findViewById(R.id.edittext_edit_saticfaction);
+        simpleRatingBar = (SimpleRatingBar)findViewById(R.id.simple_ratingbar_store_study_time);
         addButton = (Button) findViewById(R.id.button_add_saticfaction);
         cancelButton = (Button)findViewById(R.id.button_cancel_add_saticfaction);
 
@@ -50,9 +53,9 @@ public class StoreStudyTimeActivity extends AppCompatActivity {
                 String satisfaction = editText.getText().toString();
                 String durateTime = Time.formatTime(hour,minute,second);
 
-
+                int starNum =(int) simpleRatingBar.getRating();
                 String createTime = Time.getCurrentTimeString();
-                long result = LiteOrmHelper.getsInstance().save(new StudyTime(durateTime,createTime,satisfaction));
+                long result = LiteOrmHelper.getsInstance().save(new StudyTime(durateTime,createTime,satisfaction,starNum));
                 if(result <= 0){
                     Toast.makeText(StoreStudyTimeActivity.this,"存储数据失败",Toast.LENGTH_SHORT).show();
                 }

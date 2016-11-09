@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.FinishedStudyPlan;
@@ -19,6 +25,8 @@ import com.lwx.likestudy.data.source.db.LiteOrmHelper;
 import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.utils.Time;
 import com.lwx.likestudy.utils.VoiceHelper;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;
@@ -29,21 +37,30 @@ import java.util.Random;
 public class FinishPlanActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView textView;
-    Button confirmButton;
-    Button nextIndexButton;
+    ScrollView scrollView;
+    LinearLayout linearLayout;
+    TextView headerTextView;
+    SimpleRatingBar simpleRatingBar;
+    TextView bodyTextView;
+    TextView timeTextView;
     UnFinishedStudyPlan unFinishedStudyPlan;
     int num = -1;
     boolean speak = true;
+
+    private static final int SELECT_PLAN = 11;
+    private static final int RESELECT = 12;
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish_plan);
         toolbar = (Toolbar)findViewById(R.id.toolbar_finish_plan);
-        textView = (TextView)findViewById(R.id.textview_selected_plan);
-        confirmButton = (Button)findViewById(R.id.button_confirm_continue);
-        nextIndexButton = (Button)findViewById(R.id.button_next_index);
+        scrollView = (ScrollView)findViewById(R.id.scrollview_finish_plan);
+        linearLayout = (LinearLayout)findViewById(R.id.linearlayout_finish_plan);
+        headerTextView = (TextView)findViewById(R.id.textview_selected_plan_header);
+        simpleRatingBar = (SimpleRatingBar)findViewById(R.id.simple_ratingbar_selected_plan);
+        bodyTextView = (TextView)findViewById(R.id.textview_selected_plan_body);
+        timeTextView = (TextView)findViewById(R.id.textview_selected_plan_time);
         toolbar.setTitle("进行计划");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,31 +80,14 @@ public class FinishPlanActivity extends AppCompatActivity {
         }
         else{
 
-            textView.setText("\n\n"
-                    + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
-                    +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
-                    + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                    + "." + "\n" + "内容： " + unFinishedStudyPlan.getContent() +".");
+            setView();
+
+
         }
 
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent = new Intent(FinishPlanActivity.this,SelfLearingActivity.class);
-                intent.putExtra("index",1);
-                startActivityForResult(intent,1);
-            }
-        });
 
-        nextIndexButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                getPlan();
-            }
-        });
-
+        this.registerForContextMenu(linearLayout);
         if(LikeStudyApplication.isSpeakerOpen() && speak == true){
 
             VoiceHelper.inFinishPlanAcitivity(this);
@@ -118,11 +118,42 @@ public class FinishPlanActivity extends AppCompatActivity {
         num = randomNum;
 
         unFinishedStudyPlan = datas.get(randomNum);
-        textView.setText("\n\n"
-                + "科目： " + unFinishedStudyPlan.getSubject() + ".\n" + "方式： "+unFinishedStudyPlan.getWay()
-                +".\n" + "重要性： " + unFinishedStudyPlan.getImportance() + ".\n"
-                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + ".\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                + "." + "\n" + "内容： " + unFinishedStudyPlan.getContent() +".");
+        setView();
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo){
+
+        super.onCreateContextMenu(menu,v,menuInfo);
+        menu.add(0,SELECT_PLAN, Menu.NONE,"选择计划");
+        menu.add(0,RESELECT, Menu.NONE, "重新选择");
+
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+
+        if(item.getItemId() < 11 || item.getItemId() > 12){
+
+            return false;
+        }
+
+        if(item.getItemId() == 11){
+
+            Intent intent = new Intent(FinishPlanActivity.this,SelfLearingActivity.class);
+            intent.putExtra("index",1);
+            startActivityForResult(intent,1);
+        }
+        else if(item.getItemId() == 12){
+
+            getPlan();
+        }
+
+        super.onContextItemSelected(item);
+        return true;
     }
 
     @Override
@@ -140,17 +171,16 @@ public class FinishPlanActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+
+                        Intent intent = new Intent(FinishPlanActivity.this,StoreFinishedPlanActivity.class);
+
+
                         FinishedStudyPlan finishedStudyPlan =
                                 new FinishedStudyPlan(durateTime,Time.getCurrentTimeString()
-                                ,5,unFinishedStudyPlan);
-                        long res = LiteOrmHelper.getsInstance().save(finishedStudyPlan);
-                        if(res <= 0){
-                            Toast.makeText(FinishPlanActivity.this,"存储数据失败",Toast.LENGTH_SHORT).show();
-                        }
-                        if(res > 0){
-
-                            UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
-                        }
+                                ,unFinishedStudyPlan);
+                        intent.putExtra("finishedplan",finishedStudyPlan);
+                        startActivity(intent);
+                        UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
                         finish();
                     }
                 });
@@ -164,6 +194,18 @@ public class FinishPlanActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private void setView(){
+
+        headerTextView.setText(
+                 unFinishedStudyPlan.getEndTime() + "    "
+                        + unFinishedStudyPlan.getSubject() + " " +unFinishedStudyPlan.getWay());
+
+        simpleRatingBar.setRating((int)unFinishedStudyPlan.getImportance());
+
+        bodyTextView.setText(unFinishedStudyPlan.getContent()+"\n");
+        timeTextView.setText(unFinishedStudyPlan.getCreatedTime());
     }
 
 

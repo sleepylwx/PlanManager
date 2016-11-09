@@ -34,6 +34,8 @@ public class VoiceRecognizer {
     private static final String FINISHEDRECORD1="完成的记录";
     private static final String ADDPLAN="添加计划";
     private static final String ADDPLAN1="添加一个计划";
+    private static final String ADDPLAN2 = "制定计划";
+    private static final String ADDPLAN3="制定一个计划";
 
     public static void getVoice(Context context){
 
@@ -118,7 +120,8 @@ public class VoiceRecognizer {
             Intent intent = new Intent(context, FinishedPlanTopActivity.class);
             context.startActivity(intent);
         }
-        else if(string.indexOf(ADDPLAN) >= 0 || string.indexOf(ADDPLAN1) >= 0){
+        else if(string.indexOf(ADDPLAN) >= 0 || string.indexOf(ADDPLAN1) >= 0
+                ||string.indexOf(ADDPLAN2) >= 0 || string.indexOf(ADDPLAN3) >= 0){
 
             Intent intent = new Intent(context, SetPlanActivity.class);
             context.startActivity(intent);

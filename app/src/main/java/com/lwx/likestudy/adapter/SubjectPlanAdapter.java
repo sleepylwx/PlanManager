@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.utils.ClickRecord;
@@ -129,6 +130,9 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.expandable_subject_child,null);
             childHolder = new ChildHolder();
             childHolder.textView = (TextView)convertView.findViewById(R.id.textview_subject_child);
+            childHolder.simpleRatingBar = (SimpleRatingBar)convertView.findViewById(R.id.simple_ratingbar_subject_body);
+            childHolder.bodyTextView = (TextView)convertView.findViewById(R.id.textview_subject_child_body);
+            childHolder.timeTextView = (TextView)convertView.findViewById(R.id.textview_subject_child_time);
             childHolder.setGroupPosition(groupPosition);
             childHolder.setChildPosition(childPosition);
             convertView.setTag(childHolder);
@@ -141,12 +145,11 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
         UnFinishedStudyPlan unFinishedStudyPlan = datasBySubject
                 .get(groupPosition)
                 .get(childPosition);
-        childHolder.textView.setText(unFinishedStudyPlan.getIndex()+"\n"
-                + "科目： " + unFinishedStudyPlan.getSubject() + "\n" + "方式： "+unFinishedStudyPlan.getWay()
-                +"\n" + "重要性： " + unFinishedStudyPlan.getImportance() + "\n"
-                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + "\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                + "\n"+ "内容： " + unFinishedStudyPlan.getContent());
-
+        childHolder.textView.setText(unFinishedStudyPlan.getIndex()+"   " + unFinishedStudyPlan.getEndTime() + "    "
+                + unFinishedStudyPlan.getSubject() + " " +unFinishedStudyPlan.getWay());
+        childHolder.simpleRatingBar.setRating(unFinishedStudyPlan.getImportance());
+        childHolder.bodyTextView.setText(unFinishedStudyPlan.getContent()+"\n");
+        childHolder.timeTextView.setText(unFinishedStudyPlan.getCreatedTime());
         return convertView;
 
 
@@ -165,6 +168,9 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
     private class ChildHolder extends ClickRecord{
 
         TextView textView;
+        SimpleRatingBar simpleRatingBar;
+        TextView bodyTextView;
+        TextView timeTextView;
     }
 
 

@@ -4,10 +4,16 @@
     <item
         android:id="@+id/mode_self_learning"
 
-        android:orderInCategory="100"
+        android:orderInCategory="99"
         android:title="@string/mode_self_learning"
-        android:icon="@drawable/study1"
-        app:showAsAction="always"/>
+        />
+
+    <item
+        android:id="@+id/recent_needed_finish_plan"
+
+        android:orderInCategory="100"
+        android:title="近期需要完成的计划"
+        />
 
 
 

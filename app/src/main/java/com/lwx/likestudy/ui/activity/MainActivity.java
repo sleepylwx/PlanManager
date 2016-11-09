@@ -282,7 +282,11 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this,SelfLearingActivity.class);
             startActivity(intent);
         }
+        else if(id == R.id.recent_needed_finish_plan){
 
+            Intent intent = new Intent(MainActivity.this,RecentNeededPlanActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

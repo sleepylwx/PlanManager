@@ -24,7 +24,7 @@ public class FinishedStudyPlan  implements Parcelable {
 
     private String finishedTime;
 
-    private int satisfaction;
+    private String satisfaction;
 
 
     private String createdTime;
@@ -35,6 +35,17 @@ public class FinishedStudyPlan  implements Parcelable {
     private String content;
     private String endTime;
     private int importance;
+
+    private int starNum;
+
+    public int getStarNum() {
+        return starNum;
+    }
+
+    public void setStarNum(int starNum) {
+        this.starNum = starNum;
+    }
+
     @Ignore
     private int index;
 
@@ -42,17 +53,18 @@ public class FinishedStudyPlan  implements Parcelable {
 
     }
 
-    public FinishedStudyPlan( String durateTime,String finishedTime, int satisfaction, UnFinishedStudyPlan plan) {
+    public FinishedStudyPlan( String durateTime,String finishedTime, UnFinishedStudyPlan plan) {
 
         this.durateTime = durateTime;
         this.finishedTime = finishedTime;
-        this.satisfaction = satisfaction;
+
         this.createdTime = plan.getCreatedTime();
         this.subject = plan.getSubject();
         this.way = plan.getWay();
         this.content = plan.getContent();
         this.endTime = plan.getEndTime();
         this.importance = plan.getImportance();
+
 //        this.plan = new UnFinishedStudyPlan(plan.getCreatedTime(),plan.getSubject(),
 //                plan.getWay(),plan.getContent(),plan.getEndTime(),plan.getImportance());
     }
@@ -86,11 +98,11 @@ public class FinishedStudyPlan  implements Parcelable {
         this.finishedTime = finishedTime;
     }
 
-    public int getSatisfaction() {
+    public String getSatisfaction() {
         return satisfaction;
     }
 
-    public void setSatisfaction(int satisfaction) {
+    public void setSatisfaction(String satisfaction) {
         this.satisfaction = satisfaction;
     }
 
@@ -156,14 +168,14 @@ public class FinishedStudyPlan  implements Parcelable {
         this.id = in.readInt();
         this.durateTime = in.readString();
         this.finishedTime = in.readString();
-        this.satisfaction = in.readInt();
+        this.satisfaction = in.readString();
         this.createdTime = in.readString();
         this.subject = in.readString();
         this.way = in.readString();
         this.content = in.readString();
         this.endTime = in.readString();
         this.importance = in.readInt();
-
+        this.starNum = in.readInt();
     }
 
     @Override
@@ -177,13 +189,14 @@ public class FinishedStudyPlan  implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.durateTime);
         dest.writeString(this.finishedTime);
-        dest.writeInt(this.satisfaction);
+        dest.writeString(this.satisfaction);
         dest.writeString(this.createdTime);
         dest.writeString(this.subject);
         dest.writeString(this.way);
         dest.writeString(this.content);
         dest.writeString(this.endTime);
         dest.writeInt(this.importance);
+        dest.writeInt(this.starNum);
     }
 
     public static final Parcelable.Creator<FinishedStudyPlan>CREATOR = new Parcelable.Creator<FinishedStudyPlan>(){

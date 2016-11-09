@@ -22,6 +22,8 @@ public class StudyTime implements Parcelable {
 
     private String finishedTime;
 
+    private int starNum;
+
     private String satisfaction;
 
     @Ignore
@@ -32,12 +34,13 @@ public class StudyTime implements Parcelable {
 
 
 
-    public StudyTime(String durateTime,String finishedTime, String satisfaction) {
+    public StudyTime(String durateTime,String finishedTime, String satisfaction,int starNum) {
 
         this.durateTime = durateTime;
 
         this.finishedTime = finishedTime;
         this.satisfaction = satisfaction;
+        this.starNum = starNum;
     }
 
     public StudyTime(Parcel in){
@@ -90,6 +93,14 @@ public class StudyTime implements Parcelable {
         this.durateTime = in.readString();
         this.finishedTime = in.readString();
         this.satisfaction = in.readString();
+    }
+
+    public int getStarNum() {
+        return starNum;
+    }
+
+    public void setStarNum(int starNum) {
+        this.starNum = starNum;
     }
 
     @Override

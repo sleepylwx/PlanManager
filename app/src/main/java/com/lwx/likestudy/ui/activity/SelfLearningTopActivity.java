@@ -88,7 +88,7 @@ public class SelfLearningTopActivity extends AppCompatActivity {
             AlertDialog.Builder dialog = new AlertDialog.Builder(SelfLearningTopActivity.this);
             dialog.setTitle("清空记录");
             dialog.setMessage("是否清空全部记录？");
-            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 

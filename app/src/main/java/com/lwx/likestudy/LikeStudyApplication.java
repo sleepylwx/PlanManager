@@ -12,7 +12,7 @@ public class LikeStudyApplication extends Application {
 
     private static LikeStudyApplication sInstance;
 
-    private static boolean speakerOpen = true;
+    private static boolean speakerOpen = false;
     @Override
     public void onCreate(){
         super.onCreate();

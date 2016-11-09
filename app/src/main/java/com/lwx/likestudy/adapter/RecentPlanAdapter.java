@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.utils.Data;
@@ -43,6 +44,8 @@ public class RecentPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
             viewHolder = new ViewHolder();
             viewHolder.headTextView = (TextView)view.findViewById(R.id.listview_item_textview_header);
             viewHolder.bodyTextView = (TextView)view.findViewById(R.id.listview_item_textview_body);
+            viewHolder.simpleRatingBar = (SimpleRatingBar)view.findViewById(R.id.simple_ratingbar_body);
+            viewHolder.timeTextView = (TextView)view.findViewById(R.id.listview_item_textview_time);
             view.setTag(viewHolder);
         }
         else{
@@ -50,12 +53,13 @@ public class RecentPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.headTextView.setText(unFinishedStudyPlan.getIndex()+"\n"
-                + "科目： " + unFinishedStudyPlan.getSubject() + "\n" + "方式： "+unFinishedStudyPlan.getWay()
-                +"\n" + "重要性： " + unFinishedStudyPlan.getImportance() + "\n"
-                + "截止时间： "+ unFinishedStudyPlan.getEndTime() + "\n" + "创建时间： " +unFinishedStudyPlan.getCreatedTime()
-                );
-        viewHolder.bodyTextView.setText("内容： " + unFinishedStudyPlan.getContent());
+        viewHolder.headTextView.setText(
+                unFinishedStudyPlan.getIndex()+"   " + unFinishedStudyPlan.getEndTime() + "    "
+                 + unFinishedStudyPlan.getSubject() + " " +unFinishedStudyPlan.getWay()
+                 );
+        viewHolder.simpleRatingBar.setRating(unFinishedStudyPlan.getImportance());
+        viewHolder.bodyTextView.setText(unFinishedStudyPlan.getContent()+"\n");
+        viewHolder.timeTextView.setText(unFinishedStudyPlan.getCreatedTime());
 
         return view;
     }
@@ -64,6 +68,8 @@ public class RecentPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
 
         TextView headTextView;
         TextView bodyTextView;
+        SimpleRatingBar simpleRatingBar;
+        TextView timeTextView;
     }
 
 

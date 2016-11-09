@@ -2,9 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fffdf5e6">
+    >
     <ExpandableListView
         android:id="@+id/expandablelistview_way"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:divider="#E8E8E7"
+        android:dividerHeight="4dp"
+        android:childDivider="#E8E8E7"/>
 </LinearLayout>

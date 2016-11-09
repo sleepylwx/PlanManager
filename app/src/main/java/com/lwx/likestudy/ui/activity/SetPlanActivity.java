@@ -4,10 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.contract.UnFinishedPlanContract;
@@ -16,22 +24,30 @@ import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
 import com.lwx.likestudy.utils.Time;
 import com.lwx.likestudy.utils.VoiceHelper;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by 36249 on 2016/10/29.
  */
+
+
 public class SetPlanActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button addContentbutton;
+
     EditText subjectEditText;
     EditText wayEditText;
-    EditText endTimeEditText;
-    EditText importanceEditText;
+    TextView endTimeTextView;
+    SimpleRatingBar importanceRatingbar;
     EditText contentEditText;
 
     UnFinishedStudyPlan unFinishedStudyPlan;
     boolean state = false;
     UnFinishedPlanContract.Presenter mPresenter;
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Override
     protected void onCreate(Bundle onSavedInstanceState){
 
@@ -51,11 +67,11 @@ public class SetPlanActivity extends AppCompatActivity {
         mPresenter = UnFinishedPlanPresenter.getInstance();
         subjectEditText = (EditText)findViewById(R.id.edittext_subject);
         wayEditText = (EditText)findViewById(R.id.edittext_way);
-        endTimeEditText = (EditText)findViewById(R.id.edittext_endtime);
-        importanceEditText = (EditText)findViewById(R.id.edittext_importance);
+        endTimeTextView = (TextView) findViewById(R.id.textview_endtimeshow);
+        importanceRatingbar = (SimpleRatingBar)findViewById(R.id.simple_ratingbar_importance);
         contentEditText = (EditText)findViewById(R.id.edittext_content);
 
-        addContentbutton = (Button)findViewById(R.id.button_add_plan);
+
         Intent intent = getIntent();
         unFinishedStudyPlan = ((UnFinishedStudyPlan)intent.getParcelableExtra("source"));
 
@@ -69,46 +85,101 @@ public class SetPlanActivity extends AppCompatActivity {
 
             subjectEditText.setText(unFinishedStudyPlan.getSubject());
             wayEditText.setText(unFinishedStudyPlan.getWay());
-            endTimeEditText.setText(unFinishedStudyPlan.getEndTime());
-            importanceEditText.setText(unFinishedStudyPlan.getImportance()+"");
+            endTimeTextView.setText(unFinishedStudyPlan.getEndTime());
+            importanceRatingbar.setRating(unFinishedStudyPlan.getImportance());
+            //importanceEditText.setText(unFinishedStudyPlan.getImportance()+"");
             contentEditText.setText(unFinishedStudyPlan.getContent());
             state = true;
         }
 
+        long tenYears = 50L * 365 * 1000 * 60 * 60 * 24L;
+        final TimePickerDialog mDialogAll = new TimePickerDialog.Builder()
+                .setCallBack(new OnDateSetListener() {
+                    @Override
+                    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
 
-        addContentbutton.setOnClickListener(new View.OnClickListener() {
+                        String text = getDateToString(millseconds);
+                        endTimeTextView.setText(text);
+                    }
+                })
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId("选择截止日期")
+                .setYearText("年")
+                .setMonthText("月")
+                .setDayText("日")
+                .setHourText("时")
+                .setMinuteText("分")
+                .setCyclic(false)
+                .setMinMillseconds(System.currentTimeMillis())
+                .setMaxMillseconds(System.currentTimeMillis() + tenYears)
+                .setCurrentMillseconds(System.currentTimeMillis())
+                .setThemeColor(getResources().getColor(R.color.timepicker_title_color))
+                .setType(Type.ALL)
+                .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
+                .setWheelItemTextSelectorColor(getResources().getColor(R.color.timepicker_toolbar_bg))
+                .setWheelItemTextSize(12)
+                .build();
+
+        endTimeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String subject = subjectEditText.getText().toString();
-                String way = wayEditText.getText().toString();
-                String endTime = endTimeEditText.getText().toString();
-                int importance = Integer.valueOf(importanceEditText.getText().toString());
-                String content = contentEditText.getText().toString();
-                if(state == false){
-
-                    unFinishedStudyPlan = new UnFinishedStudyPlan(Time.getCurrentTimeString()
-                            ,subject,way,content,endTime,importance);
-                    mPresenter.createUnFinishedStudyPlan(unFinishedStudyPlan);
-                }
-                else{
-                    unFinishedStudyPlan.setSubject(subject);
-                    unFinishedStudyPlan.setWay(way);
-                    unFinishedStudyPlan.setEndTime(endTime);
-                    unFinishedStudyPlan.setImportance(importance);
-                    unFinishedStudyPlan.setContent(content);
-                    unFinishedStudyPlan.setCreatedTime(Time.getCurrentTimeString());
-                    mPresenter.updateUnFinishedStudyPlan(unFinishedStudyPlan);
-                }
-
-                finish();
+                mDialogAll.show(getSupportFragmentManager(),"all");
             }
         });
-
         if(LikeStudyApplication.isSpeakerOpen()){
 
             VoiceHelper.inSetPlanActivity(this);
         }
+
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_set_plan, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        int id = item.getItemId();
+
+        if(id == R.id.menu_add_plan){
+
+
+            String subject = subjectEditText.getText().toString();
+            String way = wayEditText.getText().toString();
+            String endTime = endTimeTextView.getText().toString();
+            int importance = Integer.valueOf((int)importanceRatingbar.getRating());
+            String content = contentEditText.getText().toString();
+            if(state == false){
+
+                unFinishedStudyPlan = new UnFinishedStudyPlan(Time.getCurrentTimeString()
+                        ,subject,way,content,endTime,importance);
+                mPresenter.createUnFinishedStudyPlan(unFinishedStudyPlan);
+            }
+            else{
+                unFinishedStudyPlan.setSubject(subject);
+                unFinishedStudyPlan.setWay(way);
+                unFinishedStudyPlan.setEndTime(endTime);
+                unFinishedStudyPlan.setImportance(importance);
+                unFinishedStudyPlan.setContent(content);
+                unFinishedStudyPlan.setCreatedTime(Time.getCurrentTimeString());
+                mPresenter.updateUnFinishedStudyPlan(unFinishedStudyPlan);
+            }
+
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public String getDateToString(long time) {
+        Date d = new Date(time);
+        return sf.format(d);
+    }
 }

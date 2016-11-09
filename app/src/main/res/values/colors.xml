@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFc3272b</color>
-    <color name="colorPrimaryDark">#FFc3272b</color>
+    <color name="colorPrimary">#483d8b</color>
+    <color name="colorPrimaryDark">#483d8b</color>
     <color name="colorAccent">#FFc3272b</color>
-
-    <color name="color_fragment_recent">#fffdf5e6</color>
+    <color name="timepicker_title_color">#483d8b</color>
+    <color name="color_set_plan_background">#fffdf5e6</color>
 
     <color name="color_recyclerview_item_selected">#fff1c1e6</color>
     <color name="color_recyclerview_item">#fffdf5e6</color>

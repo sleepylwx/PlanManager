@@ -28,9 +28,9 @@ public class Time {
 
         Calendar calendar = Calendar.getInstance();
 
-        String createTime = calendar.get(Calendar.YEAR) + "年"
-                + (calendar.get(Calendar.MONTH) +  1) + "月"
-                + calendar.get(Calendar.DATE) + "日" +" "
+        String createTime = calendar.get(Calendar.YEAR) + "-"
+                + Time.formatTime(calendar.get(Calendar.MONTH) +  1) + "-"
+                + Time.formatTime(calendar.get(Calendar.DATE))  +" "
                 + Time.formatTime(calendar.get(Calendar.HOUR_OF_DAY)
                 ,calendar.get(Calendar.MINUTE)
                 ,calendar.get(Calendar.SECOND));

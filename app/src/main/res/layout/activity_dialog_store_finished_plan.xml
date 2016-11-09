@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textview_store_finished_plan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:text="写下计划完成的情况吧" />
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/simple_ratingbar_store_finished_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srb_starSize="40dp"
+        app:srb_numberOfStars="5"
+        app:srb_rating="3"
+        app:srb_stepSize="1"
+        app:srb_borderColor="#000000"
+        app:srb_fillColor="#ff0000"
+
+        app:srb_isIndicator="false"
+        android:layout_below="@id/textview_store_finished_plan"
+        />
+    <EditText
+        android:id="@+id/edittext_edit_saticfaction_finished_plan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/simple_ratingbar_store_finished_plan"
+        />
+
+    <Button
+        android:id="@+id/button_add_saticfaction_finished_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/edittext_edit_saticfaction_finished_plan"/>
+
+
+
+</RelativeLayout>

@@ -34,5 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/appbar_finished_plan_top"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:dividerHeight="4dp"
+        android:divider="#E8E8E7"/>
 </RelativeLayout>

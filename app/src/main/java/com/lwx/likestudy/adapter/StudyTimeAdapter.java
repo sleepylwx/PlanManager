@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.data.model.StudyTime;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
@@ -39,16 +40,19 @@ public class StudyTimeAdapter extends ArrayAdapter<StudyTime> {
             convertView = LayoutInflater.from(context).inflate(resouceId,null);
             viewHolder = new ViewHolder();
             viewHolder.textView = (TextView)convertView.findViewById(R.id.listview_study_time_item);
+            viewHolder.ratingBar = (SimpleRatingBar)convertView.findViewById(R.id.simple_ratingbar_study_time);
+            viewHolder.bodyTextView = (TextView)convertView.findViewById(R.id.listview_study_time_textview_body);
+            viewHolder.timeTextView = (TextView)convertView.findViewById(R.id.listview_study_time_textview_time);
             convertView.setTag(viewHolder);
         }
         else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.textView.setText(studyTime.getIndex()+"\n"
-                + "持续时间： "+studyTime.getDurateTime()+"\n"
-                +"随手一写： " + studyTime.getSatisfaction() + "\n"
-                + "日期： " + studyTime.getFinishedTime());
+        viewHolder.textView.setText(studyTime.getIndex() + "   " +studyTime.getDurateTime());
+        viewHolder.ratingBar.setRating(studyTime.getStarNum());
+        viewHolder.bodyTextView.setText(studyTime.getSatisfaction()+"\n");
+        viewHolder.timeTextView.setText(studyTime.getFinishedTime());
         return convertView;
 
     }
@@ -58,6 +62,9 @@ public class StudyTimeAdapter extends ArrayAdapter<StudyTime> {
 
 
         TextView textView;
+        SimpleRatingBar ratingBar;
+        TextView bodyTextView;
+        TextView timeTextView;
     }
 
 
