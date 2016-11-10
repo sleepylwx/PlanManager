@@ -20,16 +20,24 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
+    <TextView
+        android:id="@+id/textview_finish_plan_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_below="@id/appbar_finish_plan"
+        android:text="选择了以下计划，长按可进行或重新选择"/>
     <ScrollView
         android:id="@+id/scrollview_finish_plan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appbar_finish_plan"
-        android:paddingTop="50dp"
+        android:layout_below="@id/textview_finish_plan_title"
+        android:paddingTop="20dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingBottom="50dp"
+        android:paddingBottom="20dp"
         >
 
         <LinearLayout
@@ -38,7 +46,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="12dp"
-            android:background="@drawable/listviewshape">
+            android:background="@drawable/shape_finish_plan">
 
             <TextView
                 android:id="@+id/textview_selected_plan_header"

@@ -36,16 +36,7 @@ public class SubjectPlanAdapter extends BaseExpandableListAdapter {
         Pair<UnFinishedStudyPlan> pair = Data.getDatasInOrderOfSubject();
         groupName = pair.getGroupName();
         datasBySubject = pair.getDatas();
-//        for(int i = 0; i < groupName.size() ;++i){
-//            Log.e("groupname",groupName.get(i));
-//        }
-//
-//        for(int i = 0; i < datasBySubject.size();++i){
-//            for(int j = 0;j < datasBySubject.get(i).size();++j){
-//
-//                Log.e(i+"",datasBySubject.get(i).get(j).getSubject());
-//            }
-//        }
+
     }
 
     @Override

@@ -87,7 +87,7 @@ public class SetPlanActivity extends AppCompatActivity {
             wayEditText.setText(unFinishedStudyPlan.getWay());
             endTimeTextView.setText(unFinishedStudyPlan.getEndTime());
             importanceRatingbar.setRating(unFinishedStudyPlan.getImportance());
-            //importanceEditText.setText(unFinishedStudyPlan.getImportance()+"");
+
             contentEditText.setText(unFinishedStudyPlan.getContent());
             state = true;
         }
@@ -114,7 +114,7 @@ public class SetPlanActivity extends AppCompatActivity {
                 .setMinMillseconds(System.currentTimeMillis())
                 .setMaxMillseconds(System.currentTimeMillis() + tenYears)
                 .setCurrentMillseconds(System.currentTimeMillis())
-                .setThemeColor(getResources().getColor(R.color.timepicker_title_color))
+                .setThemeColor(getResources().getColor(R.color.color_timepicker_title))
                 .setType(Type.ALL)
                 .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.timepicker_toolbar_bg))
@@ -138,7 +138,7 @@ public class SetPlanActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.activity_set_plan, menu);
         return true;
     }
@@ -171,7 +171,7 @@ public class SetPlanActivity extends AppCompatActivity {
                 unFinishedStudyPlan.setCreatedTime(Time.getCurrentTimeString());
                 mPresenter.updateUnFinishedStudyPlan(unFinishedStudyPlan);
             }
-
+            LikeStudyApplication.setPlanNum(LikeStudyApplication.getPlanNum()+1);
             finish();
         }
 

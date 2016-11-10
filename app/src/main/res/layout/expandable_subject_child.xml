@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/expandablelistview_child_shape"
+    android:background="@drawable/shape_subject_child"
     android:padding="12dp">
     <TextView
         android:id="@+id/textview_subject_child"

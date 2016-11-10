@@ -50,6 +50,8 @@ public class VoiceHelper {
 
     private static String INSTORESTUDYTIMEACTIVITY = "您可以填写完成的满意情况并点击确定保存";
 
+    private static String INRECENTNEEDEDACTIVITY="这是最近需要完成的计划页面，在这里，您将看到最近需要完成的计划列表,"
+            + "长按某一个计划卡片可以选择完成，更新或删除这一计划卡片";
     private VoiceHelper(){
 
 
@@ -150,6 +152,17 @@ public class VoiceHelper {
 
         setSpeaker(context);
         speechSynthesizer.startSpeaking(SELECTEDELETEALLSTUDYTIME,null);
+    }
+
+    public static void inRecentNeededPlanActivity(Context context){
+
+        setSpeaker(context);
+        speechSynthesizer.startSpeaking(INRECENTNEEDEDACTIVITY,null);
+    }
+    public static void onVoiceHelperToggleSelected(Context context){
+
+        setSpeaker(context);
+        speechSynthesizer.startSpeaking(GreetingVoice.getRecentPlanString(),null);
     }
     private static void setSpeaker(Context context){
 

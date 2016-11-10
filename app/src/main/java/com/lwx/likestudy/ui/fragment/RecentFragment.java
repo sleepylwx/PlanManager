@@ -84,7 +84,7 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
         UnFinishedPlanContract.Presenter presenter = UnFinishedPlanPresenter.getInstance();
         setPresenter(presenter);
         presenter.addView(this);
-        //presenter.loadUnFinishedStudyPlans();
+
         if(madapter.getCount() == 0){
 
             listView.setVisibility(View.GONE);
@@ -174,6 +174,12 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
     public void onUnFinishedStudyPlanAllDeleted(){
 
         madapter.itemChanged();
+        if(madapter.getCount() == 0){
+
+            listView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -223,7 +229,7 @@ public class RecentFragment extends BaseFragment implements UnFinishedPlanContra
                     UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(
                             madapter.getDatas().get(menuInfo.position));
 
-
+                    LikeStudyApplication.setPlanNum(LikeStudyApplication.getPlanNum() -1);
 
                 }
             });

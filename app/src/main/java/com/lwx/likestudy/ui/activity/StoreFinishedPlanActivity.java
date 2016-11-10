@@ -38,7 +38,7 @@ public class StoreFinishedPlanActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.edittext_edit_saticfaction_finished_plan);
         simpleRatingBar = (SimpleRatingBar)findViewById(R.id.simple_ratingbar_store_finished_plan);
         addButton = (Button) findViewById(R.id.button_add_saticfaction_finished_plan);
-        //cancelButton = (Button)findViewById(R.id.button_cancel_add_saticfaction_finished_plan);
+
 
         Intent intent = getIntent();
         final FinishedStudyPlan finishedStudyPlan = (FinishedStudyPlan) intent.getParcelableExtra("finishedplan");

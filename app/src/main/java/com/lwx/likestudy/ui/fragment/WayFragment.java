@@ -181,6 +181,12 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
     public void onUnFinishedStudyPlanAllDeleted(){
 
         madapter.itemChanged();
+        if(madapter.getGroupCount() == 0){
+
+            expandableListView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -242,7 +248,7 @@ public class WayFragment extends BaseFragment implements UnFinishedPlanContract.
 
 
                     UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
-
+                    LikeStudyApplication.setPlanNum(LikeStudyApplication.getPlanNum() -1);
                 }
             });
             dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

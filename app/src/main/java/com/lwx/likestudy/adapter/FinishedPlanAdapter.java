@@ -59,7 +59,7 @@ public class FinishedPlanAdapter  extends ArrayAdapter<FinishedStudyPlan> {
         viewHolder.contentTextView.setText(finishedStudyPlan.getContent() + "\n");
         viewHolder.contentTimeTextView.setText(finishedStudyPlan.getCreatedTime());
         viewHolder.simpleRatingBar.setRating((int)finishedStudyPlan.getStarNum());
-       // Log.e("Log",finishedStudyPlan.getDurateTime());
+       
         viewHolder.durateTextView.setText(finishedStudyPlan.getDurateTime());
         viewHolder.bodyTextView.setText(finishedStudyPlan.getSatisfaction()+"\n");
         viewHolder.timeTextView.setText(finishedStudyPlan.getFinishedTime());

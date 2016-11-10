@@ -22,7 +22,7 @@ public class RecentPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
     Context context;
     int resourceId;
 
-    //static List<UnFinishedStudyPlan> datas = Data.getDatasInOrderOfCreatedTime();
+
     public RecentPlanAdapter(Context context){
 
         super(context, R.layout.listview_recent_item, Data.getDatasInOrderOfCreatedTime());

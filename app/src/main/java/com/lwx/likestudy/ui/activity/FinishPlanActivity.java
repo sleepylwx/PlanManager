@@ -74,6 +74,8 @@ public class FinishPlanActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         unFinishedStudyPlan = ((UnFinishedStudyPlan)intent.getParcelableExtra("plan"));
+
+
         if(unFinishedStudyPlan == null){
 
             getPlan();
@@ -109,7 +111,8 @@ public class FinishPlanActivity extends AppCompatActivity {
         Random random = new Random();
         int randomNum;
 
-        while((randomNum = random.nextInt(datas.size())) == num){
+        while((randomNum = random.nextInt(datas.size())) == num || (unFinishedStudyPlan != null
+                && datas.get(randomNum).getId() == unFinishedStudyPlan.getId())){
             if(datas.size() == 1){
 
                 break;

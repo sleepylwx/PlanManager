@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/listviewshape">
+    android:background="@drawable/shape_way_group">
+
     <TextView
         android:id="@+id/textview_way_parent"
         android:layout_width="match_parent"
@@ -14,4 +15,5 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingRight="50dp"/>
+
 </LinearLayout>

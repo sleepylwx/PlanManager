@@ -22,13 +22,13 @@ public class RecentNeededPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
     Context context;
     int resourceId;
 
-    //static List<UnFinishedStudyPlan> datas = Data.getDatasInOrderOfCreatedTime();
+
     public RecentNeededPlanAdapter(Context context){
 
-        super(context, R.layout.listview_recent_item, Data.getRecentNeededPlan());
+        super(context, R.layout.listview_recent_needed_plan_item, Data.getRecentNeededPlan());
 
         this.context = context;
-        this.resourceId = R.layout.listview_recent_item;
+        this.resourceId = R.layout.listview_recent_needed_plan_item;
     }
 
     @Override
@@ -42,10 +42,10 @@ public class RecentNeededPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
 
             view = LayoutInflater.from(getContext()).inflate(resourceId,null);
             viewHolder = new ViewHolder();
-            viewHolder.headTextView = (TextView)view.findViewById(R.id.listview_item_textview_header);
-            viewHolder.bodyTextView = (TextView)view.findViewById(R.id.listview_item_textview_body);
-            viewHolder.simpleRatingBar = (SimpleRatingBar)view.findViewById(R.id.simple_ratingbar_body);
-            viewHolder.timeTextView = (TextView)view.findViewById(R.id.listview_item_textview_time);
+            viewHolder.headTextView = (TextView)view.findViewById(R.id.listview_needed_item_textview_header);
+            viewHolder.bodyTextView = (TextView)view.findViewById(R.id.listview_needed_item_textview_body);
+            viewHolder.simpleRatingBar = (SimpleRatingBar)view.findViewById(R.id.simple_ratingbar_needed_item_body);
+            viewHolder.timeTextView = (TextView)view.findViewById(R.id.listview_needed_item_textview_time);
             view.setTag(viewHolder);
         }
         else{
@@ -91,4 +91,6 @@ public class RecentNeededPlanAdapter extends ArrayAdapter<UnFinishedStudyPlan> {
 
         return Data.getRecentNeededPlan();
     }
+
+
 }

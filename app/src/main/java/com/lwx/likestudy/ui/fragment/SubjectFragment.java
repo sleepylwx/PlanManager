@@ -62,7 +62,7 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
         textView = (TextView)getActivity().findViewById(R.id.textview_fragment_subject);
         madapter = new SubjectPlanAdapter(getActivity());
         expandableListView.setAdapter(madapter);
-        //
+
 
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -136,9 +136,7 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
     public void onUnFinishedStudyPlansLoaded(List<UnFinishedStudyPlan> unFinishedStudyPlans){
 
         madapter.itemChanged();
-//        madapter.setDatas(unFinishedStudyPlans);
-//        Log.e("Subjectload",String.valueOf(madapter.getDatas().size()));
-//        madapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -152,16 +150,13 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
             textView.setVisibility(View.GONE);
             isEmpty = false;
         }
-//        madapter.addData(unFinishedStudyPlan);
-//        Log.e("subjectcreate",String.valueOf(madapter.getDatas().size()));
-//        madapter.notifyDataSetChanged();
+
     }
     @Override
     public void onUnFinishedStudyPlanUpdated(UnFinishedStudyPlan unFinishedStudyPlan){
-//
+
         madapter.itemChanged();
-//        madapter.getDatas().set(mUpdateIndex,unFinishedStudyPlan);
-//        madapter.notifyItemChanged(mUpdateIndex);
+
     }
 
     @Override
@@ -174,14 +169,19 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
             textView.setVisibility(View.VISIBLE);
             isEmpty = true;
         }
-//        madapter.getDatas().remove(mDeleteIndex);
-//        madapter.notifyItemRemoved(mDeleteIndex);
+
     }
 
     @Override
     public void onUnFinishedStudyPlanAllDeleted(){
 
         madapter.itemChanged();
+        if(madapter.getGroupCount() == 0){
+
+            expandableListView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            isEmpty = true;
+        }
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -242,7 +242,7 @@ public class SubjectFragment extends BaseFragment implements UnFinishedPlanContr
 
 
                     UnFinishedPlanPresenter.getInstance().deleteUnFinishedStudyPlan(unFinishedStudyPlan);
-
+                    LikeStudyApplication.setPlanNum(LikeStudyApplication.getPlanNum() -1);
                 }
             });
             dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -64,6 +64,11 @@ public class RecentNeededPlanActivity extends AppCompatActivity {
         }
 
         this.registerForContextMenu(listView);
+
+        if(LikeStudyApplication.isSpeakerOpen()){
+
+            VoiceHelper.inRecentNeededPlanActivity(this);
+        }
     }
 
 
@@ -81,9 +86,10 @@ public class RecentNeededPlanActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item){
 
-//        if(item.getItemId() > 2){
-//            return false;
-//        }
+        if(item.getItemId() > 15 || item.getItemId() < 13){
+
+            return false;
+        }
 
 
         final AdapterView.AdapterContextMenuInfo  menuInfo =
@@ -121,6 +127,7 @@ public class RecentNeededPlanActivity extends AppCompatActivity {
                         listView.setVisibility(View.GONE);
                         textView.setVisibility(View.VISIBLE);
                     }
+                    LikeStudyApplication.setPlanNum(LikeStudyApplication.getPlanNum() -1);
                 }
             });
             dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
