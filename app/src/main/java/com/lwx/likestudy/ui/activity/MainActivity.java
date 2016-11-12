@@ -24,6 +24,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lwx.likestudy.LikeStudyApplication;
 import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.MainPagerAdapter;
+import com.lwx.likestudy.service.NotificationService;
 import com.lwx.likestudy.ui.fragment.BaseFragment;
 import com.lwx.likestudy.ui.fragment.RecentFragment;
 
@@ -236,6 +237,9 @@ public class MainActivity extends AppCompatActivity
         });
         bottomNavigationBar.selectTab(0);
 
+        //NotificationHelper.createNotification(this);
+        Intent intent = new Intent(this, NotificationService.class);
+        startService(intent);
         LikeStudyApplication.setPlanNum(Data.getUnFinishedPlanDatas().size());
         if(LikeStudyApplication.isSpeakerOpen()){
 

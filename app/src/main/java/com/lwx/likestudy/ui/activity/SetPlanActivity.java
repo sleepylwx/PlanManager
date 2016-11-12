@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -156,6 +157,10 @@ public class SetPlanActivity extends AppCompatActivity {
             String endTime = endTimeTextView.getText().toString();
             int importance = Integer.valueOf((int)importanceRatingbar.getRating());
             String content = contentEditText.getText().toString();
+            if(endTime == ""){
+                Toast.makeText(SetPlanActivity.this,"请选择截止日期",Toast.LENGTH_SHORT).show();
+                return super.onOptionsItemSelected(item);
+            }
             if(state == false){
 
                 unFinishedStudyPlan = new UnFinishedStudyPlan(Time.getCurrentTimeString()
@@ -171,6 +176,7 @@ public class SetPlanActivity extends AppCompatActivity {
                 unFinishedStudyPlan.setCreatedTime(Time.getCurrentTimeString());
                 mPresenter.updateUnFinishedStudyPlan(unFinishedStudyPlan);
             }
+
             LikeStudyApplication.setPlanNum(LikeStudyApplication.getPlanNum()+1);
             finish();
         }

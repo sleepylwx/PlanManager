@@ -49,6 +49,14 @@
             android:theme="@style/AppDialogTheme"
             android:label="存入完成记录"/>
         <activity android:name=".ui.activity.RecentNeededPlanActivity"/>
+
+        <service android:name=".service.NotificationService"/>
+        <receiver android:name=".broadcastreceiver.DaemonNotifyServiceReceiver">
+
+            <intent-filter>
+                <action android:name="com.lwx.NOTIFYSERVICEEND"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

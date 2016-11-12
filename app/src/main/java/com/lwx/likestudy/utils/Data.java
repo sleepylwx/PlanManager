@@ -18,20 +18,28 @@ import java.util.List;
  */
 public class Data {
 
+
+
     public static List<UnFinishedStudyPlan> getUnFinishedPlanDatas(){
 
         return LiteOrmHelper.getsInstance().query(UnFinishedStudyPlan.class);
     }
+
+
 
     public static List<FinishedStudyPlan> getFinishedPlanDatas(){
 
         return LiteOrmHelper.getsInstance().query(FinishedStudyPlan.class);
     }
 
+
+
     public static List<StudyTime> getStudyTimeDatas(){
 
         return LiteOrmHelper.getsInstance().query(StudyTime.class);
     }
+
+
 
     public static  List<UnFinishedStudyPlan> getDatasInOrderOfCreatedTime(){
 
@@ -177,6 +185,7 @@ public class Data {
         return pair;
     }
 
+
     public static List<UnFinishedStudyPlan> getDatasInOrderOfEndTimeWithNoIndex(){
 
         List<UnFinishedStudyPlan> datas = getUnFinishedPlanDatas();
@@ -211,6 +220,7 @@ public class Data {
         return datas;
     }
 
+
     public static List<FinishedStudyPlan> getFinishedPlanInOrderOfFinshedTime(){
 
 
@@ -231,26 +241,34 @@ public class Data {
         return datas;
     }
 
+
+
     public static long deleteFinishedPlan(FinishedStudyPlan finishedStudyPlan){
 
         return LiteOrmHelper.getsInstance().delete(finishedStudyPlan);
     }
+
+
 
     public static long deleteStudyTime(StudyTime studyTime){
 
         return LiteOrmHelper.getsInstance().delete(studyTime);
     }
 
+
     public static void deleteAllStudyTime(){
 
         LiteOrmHelper.getsInstance().delete(StudyTime.class);
         return;
     }
+
+
     public static void deleteAllFinishedPlan(){
 
         LiteOrmHelper.getsInstance().delete(FinishedStudyPlan.class);
         return;
     }
+
 
     public static void deleteAllUnFinishedPlan(){
 
@@ -258,12 +276,15 @@ public class Data {
         return;
     }
 
+
     public static void deleteAllData(){
 
         deleteAllStudyTime();
         deleteAllUnFinishedPlan();
         deleteAllFinishedPlan();
     }
+
+
 
     public static List<UnFinishedStudyPlan> getDatasInOrderOfEndTime(){
 
@@ -277,20 +298,49 @@ public class Data {
         return list;
     }
 
+
+
     public static List<UnFinishedStudyPlan>getRecentNeededPlan(){
 
         List<UnFinishedStudyPlan>list = getDatasInOrderOfEndTime();
 
-        int num = list.size() == 0 ? 0 : 1;
-        for(int i = 0; i < list.size() - 1;++i){
+        if(list.size() == 0){
 
-            if(list.get(i).getEndTime().equals(list.get(i+1).getEndTime())){
-
-                ++num;
-                continue;
-            }
-            break;
+            return new ArrayList<>();
         }
+
+        String curTime = Time.getCurrentTimeString();
+        int num;
+        if(list.get(0).getEndTime().compareTo(curTime) < 0){
+
+            num = 0;
+            for(int i = 0; i < list.size(); ++i){
+
+                if(list.get(i).getEndTime().compareTo(curTime) <= 0){
+
+                    ++num;
+
+                }
+                else{
+
+                    break;
+                }
+            }
+        }
+        else{
+
+            num = 1;
+            for(int i = 0; i < list.size() - 1;++i){
+
+                if(list.get(i).getEndTime().equals(list.get(i+1).getEndTime())){
+
+                    ++num;
+                    continue;
+                }
+                break;
+            }
+        }
+
 
         List<UnFinishedStudyPlan>temp = new ArrayList<>();
 
@@ -301,4 +351,25 @@ public class Data {
 
         return temp;
     }
+
+
+
+
+    public static int getTodayNeededPlanNum(List<UnFinishedStudyPlan> datas){
+
+        int num = 1;
+
+        for(int i = 0; i < datas.size() - 1;++i){
+
+            if(datas.get(i).getEndTime().equals(datas.get(i+1).getEndTime())){
+
+                ++num;
+                continue;
+            }
+            break;
+        }
+        return num;
+    }
+
+
 }

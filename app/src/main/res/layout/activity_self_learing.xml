@@ -26,16 +26,24 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="60sp"
+        android:background="@drawable/shape_self_learning"
         android:gravity="center"
         android:text="00 : 00 : 00"
         android:layout_marginTop="140dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         />
     <Button
         android:id="@+id/button_self_learing"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:text="开始"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/selector_button_start_study"
         />
 
 

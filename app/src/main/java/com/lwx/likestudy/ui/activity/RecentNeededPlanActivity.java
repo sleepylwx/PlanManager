@@ -1,6 +1,7 @@
 package com.lwx.likestudy.ui.activity;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.lwx.likestudy.R;
 import com.lwx.likestudy.adapter.RecentNeededPlanAdapter;
 import com.lwx.likestudy.data.model.UnFinishedStudyPlan;
 import com.lwx.likestudy.presenter.UnFinishedPlanPresenter;
+import com.lwx.likestudy.utils.NotificationHelper;
 import com.lwx.likestudy.utils.VoiceHelper;
 
 import org.w3c.dom.Text;
@@ -40,6 +42,10 @@ public class RecentNeededPlanActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent_needed_plan);
+
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(NotificationHelper.getNotifyID());
         toolbar = (Toolbar)findViewById(R.id.toolbar_recent_needed_plan);
         listView = (ListView)findViewById(R.id.listview_recent_needed_plan);
         textView = (TextView)findViewById(R.id.textview_recent_needed_plan);

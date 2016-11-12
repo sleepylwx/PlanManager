@@ -38,6 +38,15 @@ public class Time {
         return createTime;
     }
 
+    public static String getYearMonthAndDay(String str){
 
+        String time = str.substring(0,10);
+        return time;
+    }
 
+    public static int getCurrentHour(){
+
+        Calendar calendar = Calendar.getInstance();
+        return Integer.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+    }
 }
