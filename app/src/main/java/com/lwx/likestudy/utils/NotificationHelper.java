@@ -60,7 +60,7 @@ public class NotificationHelper {
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setDefaults( Notification.DEFAULT_SOUND
                             |Notification.DEFAULT_LIGHTS)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.icon)
                 .setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
         ;
 
