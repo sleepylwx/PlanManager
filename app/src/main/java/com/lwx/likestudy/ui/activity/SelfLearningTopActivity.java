@@ -148,6 +148,11 @@ public class SelfLearningTopActivity extends AppCompatActivity {
 
                     Data.deleteStudyTime(adapter.getDatas().get(menuInfo.position));
                     adapter.itemChanged();
+                    if(adapter.getCount() == 0){
+
+                        textView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.GONE);
+                    }
 
                 }
             });

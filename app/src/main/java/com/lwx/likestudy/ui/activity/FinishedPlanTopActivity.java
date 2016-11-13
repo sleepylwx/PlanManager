@@ -154,6 +154,11 @@ public class FinishedPlanTopActivity extends AppCompatActivity{
 
                     Data.deleteFinishedPlan(adapter.getDatas().get(menuInfo.position));
                     adapter.itemChanged();
+                    if(adapter.getCount() == 0){
+
+                        textView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.GONE);
+                    }
 
                 }
             });

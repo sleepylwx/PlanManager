@@ -64,7 +64,6 @@ public class RecentNeededPlanActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         if(adapter.getCount() == 0){
-
             listView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
         }
