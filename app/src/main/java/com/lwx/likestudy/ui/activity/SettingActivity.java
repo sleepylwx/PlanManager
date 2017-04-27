@@ -21,7 +21,7 @@ import com.zcw.togglebutton.ToggleButton;
 public class SettingActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    ToggleButton toggleButton;
+    //ToggleButton toggleButton;
     Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -29,7 +29,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         toolbar = (Toolbar)findViewById(R.id.toolbar_setting);
-        toggleButton = (ToggleButton)findViewById(R.id.togglebutton_setting_voice);
+        //toggleButton = (ToggleButton)findViewById(R.id.togglebutton_setting_voice);
         button = (Button)findViewById(R.id.button_activity_setting_clear_data);
         toolbar.setTitle("设置");
         setSupportActionBar(toolbar);
@@ -42,22 +42,22 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        toggleButton.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
-            @Override
-            public void onToggle(boolean on) {
-
-                if(on){
-
-                    LikeStudyApplication.setSpeakerOpen(true);
-                    VoiceHelper.onVoiceHelperToggleSelected(SettingActivity.this);
-                    PreferenceHelper.storeSpeakerOpen();
-                }
-                else{
-                    LikeStudyApplication.setSpeakerOpen(false);
-                    PreferenceHelper.storeSpeakerOpen();
-                }
-            }
-        });
+//        toggleButton.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+//            @Override
+//            public void onToggle(boolean on) {
+//
+//                if(on){
+//
+//                    LikeStudyApplication.setSpeakerOpen(true);
+//                    VoiceHelper.onVoiceHelperToggleSelected(SettingActivity.this);
+//                    PreferenceHelper.storeSpeakerOpen();
+//                }
+//                else{
+//                    LikeStudyApplication.setSpeakerOpen(false);
+//                    PreferenceHelper.storeSpeakerOpen();
+//                }
+//            }
+//        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,14 +83,14 @@ public class SettingActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-        if(LikeStudyApplication.isSpeakerOpen()){
-
-            toggleButton.setToggleOn();
-        }
-        else{
-
-            toggleButton.setToggleOff();
-        }
+//        if(LikeStudyApplication.isSpeakerOpen()){
+//
+//            toggleButton.setToggleOn();
+//        }
+//        else{
+//
+//            toggleButton.setToggleOff();
+//        }
 
 
     }

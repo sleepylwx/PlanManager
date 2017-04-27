@@ -30,42 +30,42 @@
             android:layout_height="match_parent"
             >
 
-            <RelativeLayout
-                android:id="@+id/relativelayout_activity_setting_first"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/relativelayout_activity_setting_first"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:orientation="horizontal"-->
 
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:background="#ffffff">
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingRight="15dp"-->
+                <!--android:background="#ffffff">-->
 
-                <TextView
-                    android:id="@+id/textview_setting_voice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="语音帮助"
-                    android:textSize="20sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="#000000"/>
-                <com.zcw.togglebutton.ToggleButton
-                    android:id="@+id/togglebutton_setting_voice"
-                    android:layout_width="54dp"
-                    android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true">
-                </com.zcw.togglebutton.ToggleButton>
-            </RelativeLayout>
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/textview_setting_voice"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="语音帮助"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="20sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="#000000"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<com.zcw.togglebutton.ToggleButton&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/togglebutton_setting_voice"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="54dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentRight="true">&ndash;&gt;-->
+                <!--&lt;!&ndash;</com.zcw.togglebutton.ToggleButton>&ndash;&gt;-->
+            <!--</RelativeLayout>-->
 
 
             <Button
                 android:id="@+id/button_activity_setting_clear_data"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@id/relativelayout_activity_setting_first"
+
                 android:text="清空所有数据"
                 android:gravity="center"
-                android:layout_marginTop="6dp"
+
                 android:textSize="15sp"
                 android:textColor="#ffffff"
                 android:background="@drawable/selector_activity_setting_clear_all_data"/>
